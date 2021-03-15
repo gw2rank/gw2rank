@@ -1,0 +1,62 @@
+<div class="content-wrap">
+  <div class="mpl-navbar-mobile-overlay"></div>
+  <div>
+    <section class="mpl-banner mpl-banner-top mpl-banner-parallax mpl-banner-small">
+        <div class="mpl-image" data-speed="0.8">
+          <%= image_tag 'texture_crystal2_s.jpg', class: 'jarallax-img' %>
+        </div>
+        <div class="mpl-banner-content mpl-box-lg">
+            <div class="container">
+                <h1 class="display-1 mb-0">PVP League season leaderboards</h1>
+            </div>
+        </div>
+    </section>
+    <div class="mpl-box-md">
+        <div class="container">
+            <h2>EU ladder</h2>
+            <table class="table table-striped mb-60">
+              <thead>
+                <th>Rank</th>
+                <th>Name</td>
+                <th>Rating</th>
+                <th>Wins</th>
+                <th>Defeats</th>
+              </thead>
+              <tbody>
+                <% JSON.parse(@eu_ladder).each do |player| %>
+                  <tr>
+                    <td><%= player['rank'] %></td>
+                    <td><%= player['name'] %></td>
+                    <td><%= player['scores'][0]['value'] %></td>
+                    <td><%= player['scores'][1]['value'] %></td>
+                    <td><%= player['scores'][2]['value'] %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+            <h2>NA Ladder</h2>
+            <table class="table table-striped mb-60">
+              <thead>
+                <th>Rank</th>
+                <th>Name</td>
+                <th>Rating</th>
+                <th>Wins</th>
+                <th>Defeats</th>
+              </thead>
+              <tbody>
+                <% JSON.parse(@na_ladder).each do |player| %>
+                  <tr>
+                    <td><%= player['rank'] %></td>
+                    <td><%= player['name'] %></td>
+                    <td><%= player['scores'][0]['value'] %></td>
+                    <td><%= player['scores'][1]['value'] %></td>
+                    <td><%= player['scores'][2]['value'] %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+        </div>
+    </div>
+    <%= render 'footer' %>
+  </div>
+</div>
