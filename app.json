@@ -1,0 +1,9 @@
+{
+  "name": "gw2rank",
+  "description": "GW2Rank.com",
+  "scripts": {
+    "dokku": {
+      "postdeploy": "bundle exec rails db:migrate"
+    }
+  }
+}
