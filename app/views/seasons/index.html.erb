@@ -1,0 +1,37 @@
+<div class="content-wrap">
+  <div class="mpl-navbar-mobile-overlay"></div>
+  <div>
+    <section class="mpl-banner mpl-banner-top mpl-banner-parallax mpl-banner-small">
+        <div class="mpl-image" data-speed="0.8">
+          <%= image_tag 'texture_crystal2_s.jpg', class: 'jarallax-img' %>
+        </div>
+        <div class="mpl-banner-content mpl-box-lg">
+            <div class="container">
+                <h1 class="display-1 mb-0">PVP League season leaderboards</h1>
+            </div>
+        </div>
+    </section>
+    <div class="mpl-box-md">
+        <div class="container">
+            <h2>Seasons</h2>
+            <table class="table table-striped mb-60">
+              <thead>
+                <th>Name</td>
+                <th>Start</th>
+                <th>End</th>
+              </thead>
+              <tbody>
+                <% @seasons.each do |season| %>
+                  <tr>
+                    <td><%= link_to season.name, season_path(season.id) %></td>
+                    <td><%= l season.start.to_date %></td>
+                    <td><%= l season.end.to_date %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+        </div>
+    </div>
+    <%= render 'footer' %>
+  </div>
+</div>

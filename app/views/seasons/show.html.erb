@@ -23,7 +23,7 @@
                 <th>Defeats</th>
               </thead>
               <tbody>
-                <% JSON.parse(@eu_ladder).each do |player| %>
+                <% @eu_players.each do |player| %>
                   <tr>
                     <td><%= player['rank'] %></td>
                     <td><%= player['name'] %></td>
@@ -44,7 +44,7 @@
                 <th>Defeats</th>
               </thead>
               <tbody>
-                <% JSON.parse(@na_ladder).each do |player| %>
+                <% @na_players.each do |player| %>
                   <tr>
                     <td><%= player['rank'] %></td>
                     <td><%= player['name'] %></td>

@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  igname: MyString
+  best_rating: 1
+  best_rating_season: one
+
+two:
+  igname: MyString
+  best_rating: 1
+  best_rating_season: two

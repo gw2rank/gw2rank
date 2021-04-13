@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  gw_id: MyString
+  name: MyString
+  start: 2021-04-14 00:09:57
+  end: 2021-04-14 00:09:57
+  active: false
+
+two:
+  gw_id: MyString
+  name: MyString
+  start: 2021-04-14 00:09:57
+  end: 2021-04-14 00:09:57
+  active: false
