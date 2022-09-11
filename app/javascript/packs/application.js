@@ -9,5 +9,4 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
 Rails.start()
-Turbo.start()
 ActiveStorage.start()
