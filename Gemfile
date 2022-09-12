@@ -31,7 +31,7 @@ gem 'net-imap', require: false
 gem 'net-pop', require: false
 gem 'net-smtp', require: false
 gem 'rest-client'
-gem "tailwindcss-rails", "~> 2.0"
+gem 'cssbundling-rails'
 gem 'turbo-rails'
 
 group :development, :test do
