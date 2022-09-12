@@ -31,7 +31,7 @@ namespace :pvp_seasons do
         ladder.update(json: gw_pvp_ladder_json)
         gw_pvp_ladder.each do |gw_player|
           player = Player.where(igname: gw_player['name']).first_or_create
-          if gw_player['scores'][0]['value'] > player.best_rating
+          if gw_player['scores'][0]['value'] < player.best_rating
             player.update(
               best_rating: gw_player['scores'][0]['value'],
               best_rating_season_id: season.id

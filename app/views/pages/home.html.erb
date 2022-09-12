@@ -1,24 +1,13 @@
-<div class="content-wrap">
-  <div class="mpl-navbar-mobile-overlay"></div>
-    <div>
-      <section class="mpl-banner mpl-banner-top mpl-banner-parallax">
-        <div class="mpl-image" data-speed="0.8" style="z-index: 0;">
-          <div style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; overflow: hidden; z-index: -100;" id="jarallax-container-0">
-            <%= image_tag 'texture_crystal2_s.jpg', class: 'jarallax-img' %>
-          </div>
-        </div>
-        <div class="mpl-banner-content mpl-box-lg" style="filter: blur(2.036px);">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-10" data-sr="banner" data-sr-interval="200" data-sr-duration="1200" data-sr-distance="20">
-                        <h1 class="display-1" data-sr-item="banner" style="visibility: visible;">GW2Rank</h1>
-                        <%= link_to 'See the ladders', seasons_path, class: 'btn btn-md btn-brand' %>
-                    </div>
-                </div>
-            </div>
-        </div>
-      </section>
+<div class="hero min-h-screen" style="background-image: url(<%= image_path 'texture_crystal2_s.jpg' %>);">
+  <div class="hero-overlay bg-opacity-10"></div>
+  <div class="hero-content text-center text-neutral-content">
+    <div class="max-w-md">
+      <h1 class="mb-5 text-5xl font-bold">GW2Rank</h1>
+      <p class="mb-5"></p>
+      <div class="btn-group">
+        <%= link_to "See the ladders", seasons_path, class: "btn btn-primary" %>
+        <%= link_to "Ask us features", "https://discord.gg/CbSF2HwMCv", class: "btn btn-secondary" %>
+      </div>
     </div>
-    <%= render 'footer' %>
   </div>
 </div>

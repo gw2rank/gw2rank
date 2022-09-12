@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="gwrank">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,16 +8,13 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <link rel="stylesheet" href="https://use.typekit.net/vgd1cli.css">
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <%= javascript_pack_tag "application", "data-turbo-track": "reload" %>
   </head>
 
   <body>
-    <%= render 'preloader' %>
-    <%= render 'navbar' %>
-    <%= render 'navbar_mobile' %>
+    <%= render "header" %>
     <%= yield %>
-    <%= javascript_include_tag 'application_footer', 'data-turbo-track': 'reload' %>
+    <%= render "footer" %>
   </body>
 </html>

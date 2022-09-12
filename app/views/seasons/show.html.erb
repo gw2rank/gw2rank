@@ -1,62 +1,89 @@
-<div class="content-wrap">
-  <div class="mpl-navbar-mobile-overlay"></div>
-  <div>
-    <section class="mpl-banner mpl-banner-top mpl-banner-parallax mpl-banner-small">
-        <div class="mpl-image" data-speed="0.8">
-          <%= image_tag 'texture_crystal2_s.jpg', class: 'jarallax-img' %>
-        </div>
-        <div class="mpl-banner-content mpl-box-lg">
-            <div class="container">
-                <h1 class="display-1 mb-0"><%= @season.name %></h1>
-            </div>
-        </div>
-    </section>
-    <div class="mpl-box-md">
-        <div class="container">
-            <h2>EU ladder</h2>
-            <table class="table table-responsive table-striped mb-60">
-              <thead>
-                <th>Rank</th>
-                <th>Name</td>
-                <th>Rating</th>
-                <th>Wins</th>
-                <th>Defeats</th>
-              </thead>
-              <tbody>
-                <% @eu_players.each do |player| %>
-                  <tr>
-                    <td><%= player['rank'] %></td>
-                    <td><%= player['name'] %></td>
-                    <td><%= player['scores'][0]['value'] %></td>
-                    <td><%= player['scores'][1]['value'] %></td>
-                    <td><%= player['scores'][2]['value'] %></td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-            <h2>NA Ladder</h2>
-            <table class="table table-responsive table-striped mb-60">
-              <thead>
-                <th>Rank</th>
-                <th>Name</td>
-                <th>Rating</th>
-                <th>Wins</th>
-                <th>Defeats</th>
-              </thead>
-              <tbody>
-                <% @na_players.each do |player| %>
-                  <tr>
-                    <td><%= player['rank'] %></td>
-                    <td><%= player['name'] %></td>
-                    <td><%= player['scores'][0]['value'] %></td>
-                    <td><%= player['scores'][1]['value'] %></td>
-                    <td><%= player['scores'][2]['value'] %></td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-        </div>
+<div class="hero" style="background-image: url(<%= image_path 'texture_crystal2_s.jpg' %>);">
+  <div class="hero-overlay bg-opacity-10"></div>
+  <div class="hero-content text-center text-neutral-content">
+    <div class="max-w-4xl">
+      <h1 class="my-5 text-5xl font-bold"><%= @season.name %></h1>
+      <p class="mb-5"></p>
     </div>
-    <%= render 'footer' %>
+  </div>
+</div>
+
+<div class="p-4">
+  <h2 class="p-4 text-2xl text-center">EU ladder</h2>
+  <div class="overflow-x-auto">
+    <table class="table table-compact table-zebra w-full">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th>Rating</th>
+          <th>Wins</th>
+          <th>Defeats</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @eu_players.each do |player| %>
+          <tr>
+            <th>
+              <%= player["rank"] %>
+              <%= "🥇" if player["rank"].eql?(1) %>
+              <%= "🥈" if player["rank"].eql?(2) %>
+              <%= "🥉" if player["rank"].eql?(3) %>
+            </th>
+            <td>
+              <div class="flex items-center space-x-3">
+                <div>
+                  <div class="font-bold"><%= player["name"] %></div>
+                  <div class="text-sm opacity-50">EU</div>
+                </div>
+              </div>
+            </td>
+            <td><%= player["scores"][0]["value"] %></td>
+            <td><%= player["scores"][1]["value"] %></td>
+            <td><%= player["scores"][2]["value"] %></td>
+          </tr>
+        <% end %>
+        </tfoot>
+    </table>
+  </div>
+</div>
+
+<div class="p-4">
+  <h2 class="p-4 text-2xl text-center">NA ladder</h2>
+  <div class="overflow-x-auto">
+    <table class="table table-compact table-zebra w-full">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th>Rating</th>
+          <th>Wins</th>
+          <th>Defeats</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @na_players.each do |player| %>
+          <tr>
+            <th>
+              <%= player["rank"] %>
+              <%= "🥇" if player["rank"].eql?(1) %>
+              <%= "🥈" if player["rank"].eql?(2) %>
+              <%= "🥉" if player["rank"].eql?(3) %>
+            </th>
+            <td>
+              <div class="flex items-center space-x-3">
+                <div>
+                  <div class="font-bold"><%= player["name"] %></div>
+                  <div class="text-sm opacity-50">NA</div>
+                </div>
+              </div>
+            </td>
+            <td><%= player["scores"][0]["value"] %></td>
+            <td><%= player["scores"][1]["value"] %></td>
+            <td><%= player["scores"][2]["value"] %></td>
+          </tr>
+        <% end %>
+        </tfoot>
+    </table>
   </div>
 </div>
