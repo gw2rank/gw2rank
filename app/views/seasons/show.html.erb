@@ -8,82 +8,84 @@
   </div>
 </div>
 
-<div class="p-4">
-  <h2 class="p-4 text-2xl text-center">EU ladder</h2>
-  <div class="overflow-x-auto">
-    <table class="table table-compact table-zebra w-full">
-      <thead>
-        <tr>
-          <th></th>
-          <th>Name</th>
-          <th>Rating</th>
-          <th>Wins</th>
-          <th>Defeats</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @eu_players.each do |player| %>
+<div class="lg:flex lg:justify-center">
+  <div class="p-4">
+    <h2 class="p-4 text-2xl text-center">EU ladder</h2>
+    <div class="overflow-x-auto">
+      <table class="table table-compact table-zebra w-full">
+        <thead>
           <tr>
-            <th>
-              <%= player["rank"] %>
-              <%= "🥇" if player["rank"].eql?(1) %>
-              <%= "🥈" if player["rank"].eql?(2) %>
-              <%= "🥉" if player["rank"].eql?(3) %>
-            </th>
-            <td>
-              <div class="flex items-center space-x-3">
-                <div>
-                  <div class="font-bold"><%= player["name"] %></div>
-                  <div class="text-sm opacity-50">EU</div>
-                </div>
-              </div>
-            </td>
-            <td><%= player["scores"][0]["value"] %></td>
-            <td><%= player["scores"][1]["value"] %></td>
-            <td><%= player["scores"][2]["value"] %></td>
+            <th></th>
+            <th>Name</th>
+            <th>Rating</th>
+            <th>Wins</th>
+            <th>Defeats</th>
           </tr>
-        <% end %>
-        </tfoot>
-    </table>
+        </thead>
+        <tbody>
+          <% @eu_players.each do |player| %>
+            <tr>
+              <th>
+                <%= player["rank"] %>
+                <%= "🥇" if player["rank"].eql?(1) %>
+                <%= "🥈" if player["rank"].eql?(2) %>
+                <%= "🥉" if player["rank"].eql?(3) %>
+              </th>
+              <td>
+                <div class="flex items-center space-x-3">
+                  <div>
+                    <div class="font-bold"><%= player["name"] %></div>
+                    <div class="text-sm opacity-50">EU</div>
+                  </div>
+                </div>
+              </td>
+              <td><%= player["scores"][0]["value"] %></td>
+              <td><%= player["scores"][1]["value"] %></td>
+              <td><%= player["scores"][2]["value"] %></td>
+            </tr>
+          <% end %>
+          </tfoot>
+      </table>
+    </div>
   </div>
-</div>
 
-<div class="p-4">
-  <h2 class="p-4 text-2xl text-center">NA ladder</h2>
-  <div class="overflow-x-auto">
-    <table class="table table-compact table-zebra w-full">
-      <thead>
-        <tr>
-          <th></th>
-          <th>Name</th>
-          <th>Rating</th>
-          <th>Wins</th>
-          <th>Defeats</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @na_players.each do |player| %>
+  <div class="p-4">
+    <h2 class="p-4 text-2xl text-center">NA ladder</h2>
+    <div class="overflow-x-auto">
+      <table class="table table-compact table-zebra w-full">
+        <thead>
           <tr>
-            <th>
-              <%= player["rank"] %>
-              <%= "🥇" if player["rank"].eql?(1) %>
-              <%= "🥈" if player["rank"].eql?(2) %>
-              <%= "🥉" if player["rank"].eql?(3) %>
-            </th>
-            <td>
-              <div class="flex items-center space-x-3">
-                <div>
-                  <div class="font-bold"><%= player["name"] %></div>
-                  <div class="text-sm opacity-50">NA</div>
-                </div>
-              </div>
-            </td>
-            <td><%= player["scores"][0]["value"] %></td>
-            <td><%= player["scores"][1]["value"] %></td>
-            <td><%= player["scores"][2]["value"] %></td>
+            <th></th>
+            <th>Name</th>
+            <th>Rating</th>
+            <th>Wins</th>
+            <th>Defeats</th>
           </tr>
-        <% end %>
-        </tfoot>
-    </table>
+        </thead>
+        <tbody>
+          <% @na_players.each do |player| %>
+            <tr>
+              <th>
+                <%= player["rank"] %>
+                <%= "🥇" if player["rank"].eql?(1) %>
+                <%= "🥈" if player["rank"].eql?(2) %>
+                <%= "🥉" if player["rank"].eql?(3) %>
+              </th>
+              <td>
+                <div class="flex items-center space-x-3">
+                  <div>
+                    <div class="font-bold"><%= player["name"] %></div>
+                    <div class="text-sm opacity-50">NA</div>
+                  </div>
+                </div>
+              </td>
+              <td><%= player["scores"][0]["value"] %></td>
+              <td><%= player["scores"][1]["value"] %></td>
+              <td><%= player["scores"][2]["value"] %></td>
+            </tr>
+          <% end %>
+          </tfoot>
+      </table>
+    </div>
   </div>
 </div>
