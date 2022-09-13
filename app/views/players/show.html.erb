@@ -1,0 +1,55 @@
+<div class="hero" style="background-image: url(<%= image_path 'texture_crystal2_s.jpg' %>);">
+  <div class="hero-overlay bg-opacity-10"></div>
+  <div class="hero-content text-center text-neutral-content">
+    <div class="max-w-4xl">
+      <h1 class="my-5 text-5xl font-bold"><%= @player.igname %> <span class="badge badge-warning badge-5xl">ALPHA</span></h1>
+      <p class="mb-5"></p>
+    </div>
+  </div>
+</div>
+<div class="p-4 text-center">
+  <%= link_to "I want to improve my profile page", "https://discord.gg/CbSF2HwMCv", class: "btn btn-primary" %>
+</div>
+<div class="p-4 text-center">
+  <% if @player.best_rank.present? %>
+    <% if @player.best_rank.eql?(1) %>
+      <span class="text-5xl">🥇</span>
+    <% elsif @player.best_rank.eql?(2) %>
+      <span class="text-4xl">🥈</span>
+    <% elsif @player.best_rank.eql?(3) %>
+      <span class="text-3xl">🥉</span>
+    <% end %>
+    <p>Best rank: <%= @player.best_rank %></p>
+  <% end %>
+  <% if @player.best_rating != 0 %>
+    <p>Best rating: <%= @player.best_rating %></p>
+  <% end %>
+</div>
+<% if @titles.any? %>
+  <div class="p-4 text-center">
+    <h2 class="text-4xl">Titles</h2>
+  </div>
+  <div class="lg:flex lg:justify-center">
+    <div class="p-4">
+      <div class="overflow-x-auto">
+        <table class="table table-compact table-zebra w-full">
+          <thead>
+            <tr>
+              <th>Titles</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @titles.each do |title| %>
+              <tr>
+                <th>
+                  <%= title.name %>
+                </th>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+<% end %>
+

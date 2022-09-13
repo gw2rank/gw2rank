@@ -25,6 +25,8 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'cssbundling-rails'
+gem 'faraday'
+gem 'friendly_id'
 gem 'high_voltage'
 gem 'jsbundling-rails'
 gem 'net-imap', require: false

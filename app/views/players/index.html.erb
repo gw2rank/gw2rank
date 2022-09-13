@@ -1,0 +1,83 @@
+<div class="hero" style="background-image: url(<%= image_path 'texture_crystal2_s.jpg' %>);">
+  <div class="hero-overlay bg-opacity-10"></div>
+  <div class="hero-content text-center text-neutral-content">
+    <div class="max-w-4xl">
+      <h1 class="my-5 text-5xl font-bold">Players <span class="badge badge-warning badge-5xl">ALPHA</span></h1>
+      <p class="mb-5"></p>
+    </div>
+  </div>
+</div>
+
+<div class="lg:flex lg:justify-center">
+  <div class="p-4">
+    <h2 class="p-4 text-2xl text-center">Top PvP players</h2>
+    <div class="overflow-x-auto">
+      <table class="table table-compact table-zebra w-full">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Best rank</th>
+            <th>Best rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @top_3_players.order([:best_rank, best_rating: :desc]).each do |player| %>
+            <tr>
+              <th>
+                <%= link_to player.igname, player_path(player) %>
+              </th>
+              <td>
+                <% if player.best_rank.eql?(1) %>
+                  <span class="text-xl">🥇</span>
+                <% elsif player.best_rank.eql?(2) %>
+                  <span class="text-lg">🥈</span>
+                <% elsif player.best_rank.eql?(3) %>
+                  <span class="text-md">🥉</span>
+                <% end %>
+                <%= player.best_rank %>
+              </td>
+              <td>
+                <%= player.best_rating %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="p-4">
+    </div>
+  </div>
+  <% if @players_with_titles.any? %>
+    <div class="p-4">
+      <h2 class="p-4 text-2xl text-center">Players with titles <span class="badge badge-warning badge-5xl">ALPHA</span></h2>
+      <div class="overflow-x-auto">
+        <table class="table table-compact table-zebra w-full">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Titles</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @players_with_titles.order(:igname).each do |player| %>
+              <tr>
+                <th>
+                  <%= link_to player.igname, player_path(player) %>
+                </th>
+                <td>
+                  <%= player.titles.count %>
+                </td>
+              </tr>
+            <% end %>
+            <tr>
+              <th>
+                <%= link_to "I want my profile page", "https://discord.gg/CbSF2HwMCv", class: "btn btn-primary" %>
+              </th>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
+</div>

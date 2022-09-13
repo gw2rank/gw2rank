@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  gw_id: 1
+  name: MyString
+  achievement_gw_id: 1
+  json: 
+
+two:
+  gw_id: 1
+  name: MyString
+  achievement_gw_id: 1
+  json: 
