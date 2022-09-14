@@ -59,7 +59,7 @@
                 <% @titles.each do |title| %>
                   <tr>
                     <th>
-                      <%= title.name %>
+                      <%= title.name.html_safe %>
                     </th>
                   </tr>
                 <% end %>
