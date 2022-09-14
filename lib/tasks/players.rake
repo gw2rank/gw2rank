@@ -20,6 +20,7 @@ namespace :players do
       Player.where.not(api_key: nil).each do |player|
         response = connection.get("/v2/account/achievements", {}, { Authorization: "Bearer #{player.api_key}" })
         player_achievements = JSON.parse(response.body)
+        next if response.body["text"].present?
         player_achievements.each do |achievement|
           a = Achievement.find_by(gw_id: achievement["id"])
           pa = player.player_achievements.where(achievement: a).first_or_initialize
