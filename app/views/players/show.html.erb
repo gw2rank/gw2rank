@@ -26,7 +26,7 @@
   <% end %>
 </div>
 
-<% if @titles.any? %>
+<% if defined?(@titles) && @titles.any? %>
   <div class="p-4 text-center">
     <h2 class="text-4xl">Titles</h2>
   </div>
