@@ -30,26 +30,24 @@
   <div class="p-4 text-center">
     <h2 class="text-4xl">Titles</h2>
   </div>
-  <div class="lg:flex lg:justify-center">
-    <div class="p-4">
-      <div class="overflow-x-auto">
-        <table class="table table-compact table-zebra w-full">
-          <thead>
+  <div class="p-4">
+    <div class="overflow-x-auto">
+      <table class="table table-compact table-zebra w-full">
+        <thead>
+          <tr>
+            <th>Titles</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @titles.each do |title| %>
             <tr>
-              <th>Titles</th>
+              <th>
+                <%= title.name %>
+              </th>
             </tr>
-          </thead>
-          <tbody>
-            <% @titles.each do |title| %>
-              <tr>
-                <th>
-                  <%= title.name %>
-                </th>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 <% end %>
@@ -58,34 +56,30 @@
   <div class="p-4 text-center">
     <h2 class="text-4xl">Achievements</h2>
   </div>
-  <div class="lg:flex lg:justify-center">
-    <div class="p-4">
-      <div class="overflow-x-auto">
-        <table class="table table-compact table-zebra w-full">
-          <thead>
+  <div class="p-4">
+    <div class="overflow-x-auto">
+      <table class="table table-compact table-zebra w-full">
+        <thead>
+          <tr>
+            <td></td>
+            <th>Achievement</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @player.done_achievements.each do |achievement| %>
             <tr>
-              <td></td>
-              <th>Achievement</th>
-              <td>Description</td>
+              <td>
+                <% if achievement.icon.present? %>
+                  <%= image_tag achievement.icon %>
+                <% end %>
+              </td>
+              <th>
+                <%= achievement.name %>
+              </th>
             </tr>
-          </thead>
-          <tbody>
-            <% @player.done_achievements.each do |achievement| %>
-              <tr>
-                <td>
-                  <% if achievement.icon.present? %>
-                    <%= image_tag achievement.icon %>
-                  <% end %>
-                </td>
-                <th>
-                  <%= achievement.name %>
-                </th>
-                <td><%= achievement.description %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 <% end %>
