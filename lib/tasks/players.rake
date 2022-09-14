@@ -6,6 +6,7 @@ namespace :players do
       )
       Player.where.not(api_key: nil).each do |player|
         response = connection.get("/v2/account/titles", {}, { Authorization: "Bearer #{player.api_key}" })
+        next if response.body["text"].present?
         player_titles = JSON.parse(response.body)
         player.update(titles: player_titles)
       end
