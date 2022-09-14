@@ -7,9 +7,10 @@ namespace :achievements do
       achievements_response = connection.get("/v2/achievements")
       achievement_ids = JSON.parse(achievements_response.body)
       achievement_ids.each do |achievement_id|
+        a = Achievement.where(gw_id: achievement_id).first_or_initialize
+        next unless a.new_record?
         achievement_response = connection.get("/v2/achievements", id: achievement_id)
         achievement = JSON.parse(achievement_response.body)
-        a = Achievement.where(gw_id: achievement["id"]).first_or_initialize
         a.gw_id = achievement["id"]
         a.icon = achievement["icon"]
         a.name = achievement["name"]
