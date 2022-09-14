@@ -14,7 +14,7 @@ class Player < ApplicationRecord
     achievements.where("player_achievements.done = ?", true)
   end
 
-  def undone_achievements
-    achievements.where("player_achievements.done = ?", false)
+  def current_player_achievements
+    player_achievements.where("player_achievements.done = ?", false)
   end
 end

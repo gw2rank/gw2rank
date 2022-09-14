@@ -10,10 +10,6 @@
 
 <div class="hero bg-base-100 min-h-screen">
   <div class="mx-auto max-w-md text-center md:max-w-full">
-    <div class="p-4 text-center">
-      <%= link_to "I want to improve my profile page", "https://discord.gg/CbSF2HwMCv", class: "btn btn-primary" %>
-    </div>
-
     <% if @player.best_rank.present? %>
       <div class="flex flex-col w-full lg:flex-row">
         <div class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center">
@@ -37,10 +33,16 @@
       </div>
     <% end %>
 
-    <div class="flex flex-col w-full lg:flex-row">
-      <div>
-        <% if defined?(@titles) && @titles.any? %>
-          <h2 class="mb-5 text-4xl font-extrabold">Titles</h2>
+    <% if defined?(@titles) && @titles.any? %>
+      <ul class="my-5 menu menu-vertical lg:menu-horizontal bg-primary rounded-box">
+        <li><a href="#titles" class="font-extrabold">Titles</a></li>
+        <li><a href="#done-achievements" class="font-extrabold">Done achievements</a></li>
+        <li><a href="#current-achievements" class="font-extrabold">Current achievements</a></li>
+      </ul>
+
+      <div class="flex flex-col w-full lg:flex-row">
+        <div>
+          <h2 id="titles" class="mb-5 text-4xl font-extrabold">Titles</h2>
           <div class="stats shadow">
             <div class="stat">
               <div class="stat-title">Titles count</div>
@@ -66,61 +68,101 @@
               </tbody>
             </table>
           </div>
-        <% end %>
-      </div>
-      <div class="divider lg:divider-horizontal"></div> 
-      <div>
-        <% if @player.achievements.any? %>
-          <h2 class="mb-5 text-4xl font-extrabold">Achievements</h2>
-          <div class="stats shadow">
-            <div class="stat">
-              <div class="stat-title">Done achievements count</div>
-              <div class="stat-value text-success"><%= @player.done_achievements.count %></div>
-              <div class="stat-desc"></div>
+        </div>
+        <div class="divider lg:divider-horizontal"></div> 
+        <div>
+          <% if @player.achievements.any? %>
+            <h2 id="done-achievements" class="mb-5 text-4xl font-extrabold">Achievements</h2>
+            <div class="stats shadow">
+              <div class="stat">
+                <div class="stat-title">Done achievements count</div>
+                <div class="stat-value text-success"><%= @player.done_achievements.count %></div>
+                <div class="stat-desc"></div>
+              </div>
             </div>
-          </div>
-          <div class="avatar-group">
-            <% @player.done_achievements.with_icons.pluck(:icon).uniq.first(5).each do |icon| %>
-              <div class="avatar">
-                <div class="w-12">
-                  <%= image_tag icon %>
+
+            <div class="avatar-group">
+              <% @player.done_achievements.with_icons.pluck(:icon).uniq.first(5).each do |icon| %>
+                <div class="avatar">
+                  <div class="w-12">
+                    <%= image_tag icon %>
+                  </div>
                 </div>
-              </div>
-            <% end %>
-            <% if @player.done_achievements.with_icons.pluck(:icon).uniq.count > 5 %>
-              <div class="avatar placeholder">
-                <div class="w-12 bg-primary text-neutral-content font-extrabold">
-                  <span>+<%= @player.done_achievements.with_icons.pluck(:icon).uniq.count - 5 %></span>
+              <% end %>
+              <% if @player.done_achievements.with_icons.pluck(:icon).uniq.count > 5 %>
+                <div class="avatar placeholder">
+                  <div class="w-12 bg-primary text-neutral-content font-extrabold">
+                    <span>+<%= @player.done_achievements.with_icons.pluck(:icon).uniq.count - 5 %></span>
+                  </div>
                 </div>
-              </div>
-            <% end %>
-          </div>
-          <div class="overflow-x-auto">
-            <table class="table table-compact table-zebra w-full">
-              <thead>
-                <tr>
-                  <td></td>
-                  <th>Achievement</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% @player.done_achievements.each do |achievement| %>
+              <% end %>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="table table-compact table-zebra w-full">
+                <thead>
                   <tr>
-                    <td>
-                      <% if achievement.icon.present? %>
-                        <%= image_tag achievement.icon %>
-                      <% end %>
-                    </td>
-                    <th>
-                      <%= achievement.name %>
-                    </th>
+                    <td></td>
+                    <th>Achievement</th>
                   </tr>
-                <% end %>
-              </tbody>
-            </table>
-          </div>
-        <% end %>
+                </thead>
+                <tbody>
+                  <% @player.done_achievements.each do |achievement| %>
+                    <tr>
+                      <td>
+                        <% if achievement.icon.present? %>
+                          <%= image_tag achievement.icon %>
+                        <% end %>
+                      </td>
+                      <th>
+                        <%= achievement.name %>
+                      </th>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+
+            <div id="current-achievements" class="my-5 stats shadow">
+              <div class="stat">
+                <div class="stat-title">Current achievements count</div>
+                <div class="stat-value text-warning"><%= @player.current_player_achievements.count %></div>
+                <div class="stat-desc"></div>
+              </div>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="table table-compact table-zebra w-full">
+                <thead>
+                  <tr>
+                    <td>Current progress</td>
+                    <td></td>
+                    <th>Achievement</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @player.current_player_achievements.each do |player_achievement| %>
+                    <tr>
+                      <td>
+                        <div class="radial-progress" style="--value:<%= player_achievement.progress %>; --size:3rem"><%= player_achievement.progress %>%</div>
+                      </td>
+                      <td>
+                        <% if player_achievement.achievement.icon.present? %>
+                          <%= image_tag player_achievement.achievement.icon %>
+                        <% end %>
+                      </td>
+                      <th>
+                        <%= player_achievement.achievement.name %>
+                      </th>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+
+          <% end %>
+        </div>
       </div>
-    </div>
+    <% end %>
   </div>
 </div>
