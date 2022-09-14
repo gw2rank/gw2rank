@@ -10,9 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_13_171806) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_13_201456) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "achievements", force: :cascade do |t|
+    t.integer "gw_id"
+    t.string "icon"
+    t.string "name"
+    t.string "description"
+    t.string "requirement"
+    t.string "locked_text"
+    t.string "gw_type"
+    t.string "flags", array: true
+    t.json "tiers"
+    t.string "prerequisites", array: true
+    t.json "rewards"
+    t.json "bits"
+    t.integer "point_cap"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
@@ -32,6 +50,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_13_171806) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["season_id"], name: "index_ladders_on_season_id"
+  end
+
+  create_table "player_achievements", force: :cascade do |t|
+    t.bigint "player_id", null: false
+    t.bigint "achievement_id", null: false
+    t.integer "gw_id"
+    t.string "bits"
+    t.integer "current"
+    t.integer "max"
+    t.boolean "done"
+    t.integer "repeated"
+    t.boolean "unlocked"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["achievement_id"], name: "index_player_achievements_on_achievement_id"
+    t.index ["player_id"], name: "index_player_achievements_on_player_id"
   end
 
   create_table "players", force: :cascade do |t|
@@ -70,4 +104,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_13_171806) do
   end
 
   add_foreign_key "ladders", "seasons"
+  add_foreign_key "player_achievements", "achievements"
+  add_foreign_key "player_achievements", "players"
 end

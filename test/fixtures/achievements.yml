@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  gw_id: 1
+  icon: MyString
+  name: MyString
+  description: MyString
+  requirement: MyString
+  locked_text: MyString
+  type: 
+  flags: MyString
+  tiers: 
+  prerequisites: MyString
+  rewards: 
+  bits: 
+  point_cap: 1
+
+two:
+  gw_id: 1
+  icon: MyString
+  name: MyString
+  description: MyString
+  requirement: MyString
+  locked_text: MyString
+  type: 
+  flags: MyString
+  tiers: 
+  prerequisites: MyString
+  rewards: 
+  bits: 
+  point_cap: 1

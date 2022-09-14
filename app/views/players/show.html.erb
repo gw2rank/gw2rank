@@ -25,6 +25,7 @@
     <p>Best rating: <%= @player.best_rating %></p>
   <% end %>
 </div>
+
 <% if @titles.any? %>
   <div class="p-4 text-center">
     <h2 class="text-4xl">Titles</h2>
@@ -44,6 +45,42 @@
                 <th>
                   <%= title.name %>
                 </th>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% if @player.achievements.any? %>
+  <div class="p-4 text-center">
+    <h2 class="text-4xl">Achievements</h2>
+  </div>
+  <div class="lg:flex lg:justify-center">
+    <div class="p-4">
+      <div class="overflow-x-auto">
+        <table class="table table-compact table-zebra w-full">
+          <thead>
+            <tr>
+              <td></td>
+              <th>Achievement</th>
+              <td>Description</td>
+            </tr>
+          </thead>
+          <tbody>
+            <% @player.done_achievements.each do |achievement| %>
+              <tr>
+                <td>
+                  <% if achievement.icon.present? %>
+                    <%= image_tag achievement.icon %>
+                  <% end %>
+                </td>
+                <th>
+                  <%= achievement.name %>
+                </th>
+                <td><%= achievement.description %></td>
               </tr>
             <% end %>
           </tbody>
