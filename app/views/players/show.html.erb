@@ -2,85 +2,125 @@
   <div class="hero-overlay bg-opacity-10"></div>
   <div class="hero-content text-center text-neutral-content">
     <div class="max-w-4xl">
-      <h1 class="my-5 text-5xl font-bold"><%= @player.igname %> <span class="badge badge-warning badge-5xl">ALPHA</span></h1>
+      <h1 class="my-5 text-5xl font-extrabold"><%= @player.igname %> <span class="badge badge-warning badge-5xl">ALPHA</span></h1>
       <p class="mb-5"></p>
     </div>
   </div>
 </div>
-<div class="p-4 text-center">
-  <%= link_to "I want to improve my profile page", "https://discord.gg/CbSF2HwMCv", class: "btn btn-primary" %>
-</div>
-<div class="p-4 text-center">
-  <% if @player.best_rank.present? %>
-    <% if @player.best_rank.eql?(1) %>
-      <span class="text-5xl">🥇</span>
-    <% elsif @player.best_rank.eql?(2) %>
-      <span class="text-4xl">🥈</span>
-    <% elsif @player.best_rank.eql?(3) %>
-      <span class="text-3xl">🥉</span>
+
+<div class="hero bg-base-100 min-h-screen">
+  <div class="mx-auto max-w-md text-center md:max-w-full">
+    <div class="p-4 text-center">
+      <%= link_to "I want to improve my profile page", "https://discord.gg/CbSF2HwMCv", class: "btn btn-primary" %>
+    </div>
+
+    <% if @player.best_rank.present? %>
+      <div class="flex flex-col w-full lg:flex-row">
+        <div class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center">
+          <p class="text-2xl font-extrabold">
+          Best rank<br>
+          <% if @player.best_rank.eql?(1) %>
+            <span class="text-5xl">🥇</span>
+          <% elsif @player.best_rank.eql?(2) %>
+            <span class="text-4xl">🥈</span>
+          <% elsif @player.best_rank.eql?(3) %>
+            <span class="text-3xl">🥉</span>
+          <% else %>
+            <%= @player.best_rank %>
+          <% end %>
+          </p>
+        </div> 
+        <div class="divider lg:divider-horizontal">AND</div> 
+        <div class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center">
+          <p class="text-2xl font-extrabold">Best rating<br><%= @player.best_rating %></p>
+        </div>
+      </div>
     <% end %>
-    <p>Best rank: <%= @player.best_rank %></p>
-  <% end %>
-  <% if @player.best_rating != 0 %>
-    <p>Best rating: <%= @player.best_rating %></p>
-  <% end %>
-</div>
 
-<% if defined?(@titles) && @titles.any? %>
-  <div class="p-4 text-center">
-    <h2 class="text-4xl">Titles</h2>
-  </div>
-  <div class="p-4">
-    <div class="overflow-x-auto">
-      <table class="table table-compact table-zebra w-full">
-        <thead>
-          <tr>
-            <th>Titles</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @titles.each do |title| %>
-            <tr>
-              <th>
-                <%= title.name %>
-              </th>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
-<% end %>
-
-<% if @player.achievements.any? %>
-  <div class="p-4 text-center">
-    <h2 class="text-4xl">Achievements</h2>
-  </div>
-  <div class="p-4">
-    <div class="overflow-x-auto">
-      <table class="table table-compact table-zebra w-full">
-        <thead>
-          <tr>
-            <td></td>
-            <th>Achievement</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @player.done_achievements.each do |achievement| %>
-            <tr>
-              <td>
-                <% if achievement.icon.present? %>
-                  <%= image_tag achievement.icon %>
+    <div class="flex flex-col w-full lg:flex-row">
+      <div>
+        <% if defined?(@titles) && @titles.any? %>
+          <h2 class="mb-5 text-4xl font-extrabold">Titles</h2>
+          <div class="stats shadow">
+            <div class="stat">
+              <div class="stat-title">Titles count</div>
+              <div class="stat-value text-success"><%= @titles.count %></div>
+              <div class="stat-desc"></div>
+            </div>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="table table-compact table-zebra w-full">
+              <thead>
+                <tr>
+                  <th>Titles</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @titles.each do |title| %>
+                  <tr>
+                    <th>
+                      <%= title.name %>
+                    </th>
+                  </tr>
                 <% end %>
-              </td>
-              <th>
-                <%= achievement.name %>
-              </th>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+              </tbody>
+            </table>
+          </div>
+        <% end %>
+      </div>
+      <div class="divider lg:divider-horizontal"></div> 
+      <div>
+        <% if @player.achievements.any? %>
+          <h2 class="mb-5 text-4xl font-extrabold">Achievements</h2>
+          <div class="stats shadow">
+            <div class="stat">
+              <div class="stat-title">Done achievements count</div>
+              <div class="stat-value text-success"><%= @player.done_achievements.count %></div>
+              <div class="stat-desc"></div>
+            </div>
+          </div>
+          <div class="avatar-group">
+            <% @player.done_achievements.with_icons.pluck(:icon).uniq.first(5).each do |icon| %>
+              <div class="avatar">
+                <div class="w-12">
+                  <%= image_tag icon %>
+                </div>
+              </div>
+            <% end %>
+            <% if @player.done_achievements.with_icons.pluck(:icon).uniq.count > 5 %>
+              <div class="avatar placeholder">
+                <div class="w-12 bg-primary text-neutral-content font-extrabold">
+                  <span>+<%= @player.done_achievements.with_icons.pluck(:icon).uniq.count - 5 %></span>
+                </div>
+              </div>
+            <% end %>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="table table-compact table-zebra w-full">
+              <thead>
+                <tr>
+                  <td></td>
+                  <th>Achievement</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @player.done_achievements.each do |achievement| %>
+                  <tr>
+                    <td>
+                      <% if achievement.icon.present? %>
+                        <%= image_tag achievement.icon %>
+                      <% end %>
+                    </td>
+                    <th>
+                      <%= achievement.name %>
+                    </th>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
-<% end %>
-
+</div>

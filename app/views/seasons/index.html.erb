@@ -2,20 +2,23 @@
   <div class="hero-overlay bg-opacity-10"></div>
   <div class="hero-content text-center text-neutral-content">
     <div class="max-w-4xl">
-      <h1 class="my-5 text-5xl font-bold">PvP League Season Leaderboards</h1>
+      <h1 class="my-5 text-5xl font-extrabold">PvP League Season Leaderboards</h1>
       <p class="mb-5"></p>
     </div>
   </div>
 </div>
+
 <div class="p-4 text-center">
-  <h2 class="text-4xl">Seasons</h2>
+  <h2 class="text-4xl font-extrabold">Seasons</h2>
 </div>
+
 <div class="p-4 grid md:grid-cols-2 lg:grid-cols-4 gap-2">
   <% @seasons.each do |season| %>
     <div class="card bg-base-100 shadow-xl">
       <div class="card-body">
-        <h2 class="card-title"><%= link_to season.name, season_path(season) %></h2>
+        <h2 class="card-title font-extrabold"><%= link_to season.name, season_path(season) %></h2>
         <p>from <%= l season.start.to_date %> to <%= l season.end.to_date %></p>
+
         <div class="card-actions justify-end">
           <%= link_to "See the ladder", season_path(season), class: "btn btn-primary" %>
         </div>
