@@ -61,7 +61,9 @@
                 <% @titles.each do |title| %>
                   <tr>
                     <th>
-                      <%= title.name.html_safe %>
+                        <%= link_to title.wiki_go_url do %>
+                          <%= title.name.html_safe %> <span class="badge badge-sm badge-secondary">WIKI</span>
+                        <% end %>
                     </th>
                   </tr>
                 <% end %>
@@ -115,7 +117,9 @@
                         <% end %>
                       </td>
                       <th>
-                        <%= achievement.name %>
+                        <%= link_to achievement.wiki_go_url do %>
+                          <%= achievement.name %> <span class="badge badge-sm badge-secondary">WIKI</span>
+                        <% end %>
                       </th>
                     </tr>
                   <% end %>
@@ -152,7 +156,9 @@
                         <% end %>
                       </td>
                       <th>
-                        <%= player_achievement.achievement.name %>
+                        <%= link_to player_achievement.achievement.wiki_go_url do %>
+                          <%= player_achievement.achievement.name %> <span class="badge badge-sm badge-secondary">WIKI</span>
+                        <% end %>
                       </th>
                     </tr>
                   <% end %>
