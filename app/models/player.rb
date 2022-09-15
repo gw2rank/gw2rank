@@ -17,4 +17,34 @@ class Player < ApplicationRecord
   def current_player_achievements
     player_achievements.where("player_achievements.done = ?", false)
   end
+
+  def update_achievements
+    connection = Faraday.new(
+      url: "https://api.guildwars2.com",
+    )
+    response = connection.get("/v2/account/achievements", {}, { Authorization: "Bearer #{self.api_key}" })
+    player_achievements = JSON.parse(response.body)
+    return if response.body["text"].present?
+    player_achievements.each do |achievement|
+      a = Achievement.find_by(gw_id: achievement["id"])
+      pa = self.player_achievements.where(achievement: a).first_or_initialize
+      pa.bits = achievement["bits"]
+      pa.current = achievement["current"]
+      pa.max = achievement["max"]
+      pa.done = achievement["done"]
+      pa.repeated = achievement["repeated"]
+      pa.unlocked = achievement["unlocked"]
+      pa.save
+    end
+  end
+
+  def update_titles
+    connection = Faraday.new(
+      url: "https://api.guildwars2.com",
+    )
+    response = connection.get("/v2/account/titles", {}, { Authorization: "Bearer #{self.api_key}" })
+    return if response.body["text"].present?
+    player_titles = JSON.parse(response.body)
+    self.update(titles: player_titles)
+  end
 end

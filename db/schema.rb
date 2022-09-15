@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_15_174745) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_15_180829) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -78,8 +78,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_15_174745) do
     t.json "titles"
     t.string "slug"
     t.integer "best_rank"
+    t.bigint "user_id"
     t.index ["igname"], name: "index_players_on_igname", unique: true
     t.index ["slug"], name: "index_players_on_slug", unique: true
+    t.index ["user_id"], name: "index_players_on_user_id"
   end
 
   create_table "seasons", force: :cascade do |t|
@@ -125,4 +127,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_15_174745) do
   add_foreign_key "ladders", "seasons"
   add_foreign_key "player_achievements", "achievements"
   add_foreign_key "player_achievements", "players"
+  add_foreign_key "players", "users"
 end

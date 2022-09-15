@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :players
+
   devise :database_authenticatable, :rememberable, :validatable, :omniauthable, omniauth_providers: [:discord]
 
   def self.from_omniauth(auth)

@@ -1,0 +1,25 @@
+<div class="m-5">
+<div class="mockup-window border border-base-300 bg-primary">
+  <div class="flex justify-center px-4 py-16 border-t border-base-300 bg-base-100">
+    <pre>
+Create new API key with:
+
+[x] account
+
+[x] unlocks
+
+[x] progression
+    </pre>
+  </div>
+  <div class="flex justify-center px-4 py-16 border-t border-base-300 bg-primary">
+
+    <%= form_with(model: @player) do |form| %>
+      <%= form.label :api_key, "API key" %>
+      <%= form.password_field :api_key, required: true, class: "input w-full mt-2" %>
+      <%= form.submit "Register player", class: "btn btn-success mt-5" %>
+    <% end %>
+  </div>
+</div>
+</div>
+
+
