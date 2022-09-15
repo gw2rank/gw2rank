@@ -7,7 +7,7 @@
       <% if current_user %>
         <%= link_to "Register my player", new_player_path, class: "btn btn-primary font-bold" %>
       <% else %>
-        <%= link_to "Sign in with Discord to register my player", user_discord_omniauth_authorize_path, class: "btn btn-primary font-bold" %>
+        <%= button_to "Sign in with Discord to register my player", user_discord_omniauth_authorize_path, class: "btn btn-primary font-bold" %>
       <% end %>
     </div>
   </div>
