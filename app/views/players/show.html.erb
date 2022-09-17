@@ -34,15 +34,9 @@
     <% end %>
 
     <% if defined?(@titles) && @titles.any? %>
-      <ul class="my-5 menu menu-vertical lg:menu-horizontal bg-primary rounded-box">
-        <li><a href="#titles" class="font-extrabold">Titles</a></li>
-        <li><a href="#done-achievements" class="font-extrabold">Done achievements</a></li>
-        <li><a href="#current-achievements" class="font-extrabold">Current achievements</a></li>
-      </ul>
-
       <div class="flex flex-col w-full lg:flex-row">
         <div>
-          <h2 id="titles" class="mb-5 text-4xl font-extrabold">Titles</h2>
+          <h2 class="mb-5 text-4xl font-extrabold">Titles</h2>
           <div class="stats shadow">
             <div class="stat">
               <div class="stat-title">Titles count</div>
@@ -50,8 +44,9 @@
               <div class="stat-desc"></div>
             </div>
           </div>
-          <div class="overflow-x-auto">
-            <table class="table table-compact table-zebra w-full">
+          <div data-controller="reveal" data-reveal-hidden-class="hidden" class="overflow-x-auto">
+            <button data-action="click->reveal#toggle" type="button" class="btn btn-primary mb-5">Toggle me!</button>
+            <table data-reveal-target="item" class="hidden table table-compact table-zebra w-full">
               <thead>
                 <tr>
                   <th>Titles</th>
@@ -74,7 +69,7 @@
         <div class="divider lg:divider-horizontal"></div> 
         <div>
           <% if @player.achievements.any? %>
-            <h2 id="done-achievements" class="mb-5 text-4xl font-extrabold">Achievements</h2>
+            <h2 class="mb-5 text-4xl font-extrabold">Achievements</h2>
             <div class="stats shadow">
               <div class="stat">
                 <div class="stat-title">Done achievements count</div>
@@ -100,8 +95,9 @@
               <% end %>
             </div>
 
-            <div class="overflow-x-auto">
-              <table class="table table-compact table-zebra w-full">
+            <div data-controller="reveal" data-reveal-hidden-class="hidden" class="overflow-x-auto">
+              <button data-action="click->reveal#toggle" type="button" class="btn btn-primary mb-5">Toggle me!</button>
+              <table data-reveal-target="item" class="hidden table table-compact table-zebra w-full">
                 <thead>
                   <tr>
                     <td></td>
@@ -127,7 +123,7 @@
               </table>
             </div>
 
-            <div id="current-achievements" class="my-5 stats shadow">
+            <div class="my-5 stats shadow">
               <div class="stat">
                 <div class="stat-title">Current achievements count</div>
                 <div class="stat-value text-warning"><%= @player.current_player_achievements.count %></div>
@@ -135,8 +131,9 @@
               </div>
             </div>
 
-            <div class="overflow-x-auto">
-              <table class="table table-compact table-zebra w-full">
+            <div data-controller="reveal" data-reveal-hidden-class="hidden" class="overflow-x-auto">
+              <button data-action="click->reveal#toggle" type="button" class="btn btn-primary mb-5">Toggle me!</button>
+              <table data-reveal-target="item" class="hidden table table-compact table-zebra w-full">
                 <thead>
                   <tr>
                     <td>Current progress</td>

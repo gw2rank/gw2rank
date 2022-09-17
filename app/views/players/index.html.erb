@@ -13,43 +13,81 @@
     <div class="my-20 flex flex-col w-full lg:flex-row">
       <div class="grid flex-grow card bg-base-300 rounded-box place-items-center">
         <h2 class="p-4 text-2xl text-center font-extrabold">Top PvP Players</h2>
-        <div class="overflow-x-auto">
-          <table class="table table-compact table-zebra w-full">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Best rank</th>
-                <th>Best rating</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @top_3_players.order([:best_rank, best_rating: :desc]).each do |player| %>
+        <div data-controller="read-more" data-read-more-more-text-value="Show more" data-read-more-less-text-value="Show less" class="overflow-x-auto">
+          <div data-read-more-target="content">
+            <table class="table table-compact table-zebra w-full">
+              <thead>
                 <tr>
-                  <th>
-                    <%= link_to player.igname, player_path(player) %>
-                  </th>
-                  <td>
-                    <% if player.best_rank.eql?(1) %>
-                      <span class="text-xl">🥇</span>
-                    <% elsif player.best_rank.eql?(2) %>
-                      <span class="text-lg">🥈</span>
-                    <% elsif player.best_rank.eql?(3) %>
-                      <span class="text-md">🥉</span>
-                    <% end %>
-                    <%= player.best_rank %>
-                  </td>
-                  <td>
-                    <%= player.best_rating %>
-                  </td>
+                  <th>Name</th>
+                  <th>Best rank</th>
+                  <th>Best rating</th>
                 </tr>
-              <% end %>
-            </tbody>
-          </table>
+              </thead>
+              <tbody> 
+                <% @top_3_players.order([:best_rank, best_rating: :desc]).first(10).each do |player| %>
+                  <tr>
+                    <th>
+                      <%= link_to player.igname, player_path(player) %>
+                    </th>
+                    <td>
+                      <% if player.best_rank.eql?(1) %>
+                        <span class="text-xl">🥇</span>
+                      <% elsif player.best_rank.eql?(2) %>
+                        <span class="text-lg">🥈</span>
+                      <% elsif player.best_rank.eql?(3) %>
+                        <span class="text-md">🥉</span>
+                      <% end %>
+                      <%= player.best_rank %>
+                    </td>
+                    <td>
+                      <%= player.best_rating %>
+                    </td>
+                  </tr>
+                <% end %>
+             </tbody>
+            </table>
+          </div>
+ 
+          <button data-action="read-more#toggle" class="btn btn-primary my-5">Show more</button>
+
+          <template data-read-more-target="full">
+            <table class="table table-compact table-zebra w-full">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Best rank</th>
+                  <th>Best rating</th>
+                </tr>
+              </thead>
+              <tbody> 
+                <% @top_3_players.order([:best_rank, best_rating: :desc]).offset(10).each do |player| %>
+                  <tr>
+                    <th>
+                      <%= link_to player.igname, player_path(player) %>
+                    </th>
+                    <td>
+                      <% if player.best_rank.eql?(1) %>
+                        <span class="text-xl">🥇</span>
+                      <% elsif player.best_rank.eql?(2) %>
+                        <span class="text-lg">🥈</span>
+                      <% elsif player.best_rank.eql?(3) %>
+                        <span class="text-md">🥉</span>
+                      <% end %>
+                      <%= player.best_rank %>
+                    </td>
+                    <td>
+                      <%= player.best_rating %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </template>
         </div> 
       </div>
       <div class="divider lg:divider-horizontal"></div> 
       <div>
-        <h2 class="p-4 text-2xl text-center font-extrabold">Players with titles <span class="badge badge-warning badge-5xl">ALPHA</span></h2>
+        <h2 class="p-4 text-2xl text-center font-extrabold">Top Players <span class="badge badge-warning badge-5xl">ALPHA</span></h2>
         <div class="overflow-x-auto">
           <table class="table table-compact table-zebra w-full">
             <thead>
@@ -75,7 +113,11 @@
               <% end %>
               <tr>
                 <th colspan="3">
-                  <%= link_to "I want my profile page", "https://discord.gg/cbsf2hwmcv", class: "btn btn-primary" %>
+                  <% if current_user %>
+                    <%= link_to "Register my player", new_player_path, class: "btn btn-primary font-bold" %>
+                  <% else %>
+                    <%= button_to "Sign in with Discord to register my player", user_discord_omniauth_authorize_path, class: "btn btn-primary font-bold" %>
+                  <% end %>
                 </th>
               </tr>
             </tbody>
