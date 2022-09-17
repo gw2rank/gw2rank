@@ -60,7 +60,7 @@
                 </tr>
               </thead>
               <tbody> 
-                <% @top_3_players.order([:best_rank, best_rating: :desc]).offset(10).each do |player| %>
+                <% @top_3_players.order([:best_rank, best_rating: :desc]).each do |player| %>
                   <tr>
                     <th>
                       <%= link_to player.igname, player_path(player) %>
