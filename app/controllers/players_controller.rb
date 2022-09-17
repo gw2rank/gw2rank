@@ -10,7 +10,11 @@ class PlayersController < ApplicationController
   end
 
   def new
-    @player = current_user.players.new
+    if current_user
+      @player = current_user.players.new
+    else
+      @player = Player.new
+    end
   end
 
   def create
@@ -23,7 +27,7 @@ class PlayersController < ApplicationController
     account = JSON.parse(response.body)
 
     @player = Player.where(igname: account["name"].capitalize).first_or_initialize
-    @player.user_id = current_user.id
+    @player.user = current_user if current_user
 
     if @player.save
       @player.update_titles

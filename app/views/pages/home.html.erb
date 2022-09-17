@@ -4,11 +4,7 @@
     <div class="max-w-lg">
       <h1 class="mb-5 text-5xl font-extrabold">GW2Rank</h1>
       <p class="mb-5"></p>
-      <% if current_user %>
-        <%= link_to "Register my player", new_player_path, class: "btn btn-primary font-bold" %>
-      <% else %>
-        <%= button_to "Sign in with Discord to register my player", user_discord_omniauth_authorize_path, class: "btn btn-primary font-bold" %>
-      <% end %>
+      <%= link_to "Register my player", new_player_path, class: "btn btn-primary font-bold" %>
     </div>
   </div>
 </div>

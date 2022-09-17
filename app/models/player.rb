@@ -1,4 +1,5 @@
 class Player < ApplicationRecord
+  belongs_to :user, optional: true
   has_many :player_achievements
   has_many :achievements, through: :player_achievements
 
