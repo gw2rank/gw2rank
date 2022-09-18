@@ -27,7 +27,7 @@ class PlayersController < ApplicationController
     render :new && return if response.body["text"].present?
     account = JSON.parse(response.body)
 
-    @player = Player.where(igname: account["name"].capitalize).first_or_initialize
+    @player = Player.where(igname: account["name"]).first_or_initialize
     @player.api_key = player_params[:api_key]
     @player.user = current_user if current_user
 
