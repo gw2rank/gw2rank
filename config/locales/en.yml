@@ -27,8 +27,8 @@ en:
       best: "Best rating"
     register: "Register my player"
   show:
-    less: "Show more"
-    more: "Show less"
+    less: "Show less"
+    more: "Show more"
   titles:
     singular: "Title"
     plural: "Titles"
