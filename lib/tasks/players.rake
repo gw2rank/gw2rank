@@ -1,7 +1,13 @@
 namespace :players do
+  task fix_account_name: :environment do
+    Player.with_api_key.each do |player|
+      player.fix_account_name
+    end
+  end
+
   namespace :titles do
     task update: :environment do
-      Player.where.not(api_key: nil).each do |player|
+      Player.with_api_key.each do |player|
         player.update_titles
      end
     end
@@ -9,7 +15,7 @@ namespace :players do
 
   namespace :achievements do
     task update: :environment do
-      Player.where.not(api_key: nil).each do |player|
+      Player.with_api_key.each do |player|
         player.update_achievements
      end
     end

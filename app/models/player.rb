@@ -7,6 +7,7 @@ class Player < ApplicationRecord
 
   scope :top_3, -> { where("best_rank IN (?)", [1, 2, 3]) }
   scope :with_titles, -> { where.not(titles: nil) }
+  scope :with_api_key, -> { where.not(api_key: nil) }
 
   extend FriendlyId
   friendly_id :igname, use: :slugged
@@ -21,6 +22,16 @@ class Player < ApplicationRecord
 
   def current_player_achievements
     player_achievements.where("player_achievements.done = ?", false)
+  end
+
+  def fix_account_name
+    connection = Faraday.new(
+      url: "https://api.guildwars2.com",
+    )
+    response = connection.get("/v2/account", {}, { Authorization: "Bearer #{self.api_key}" })
+    account = JSON.parse(response.body)
+    return if response.body["text"].present?
+    self.update(igname: account["name"]) unless self.igname.eql?(account["name"])
   end
 
   def update_achievements
