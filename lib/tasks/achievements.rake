@@ -8,6 +8,7 @@ namespace :achievements do
       achievement_ids = JSON.parse(achievements_response.body)
       achievement_ids.each do |achievement_id|
         a = Achievement.where(gw_id: achievement_id).first_or_initialize
+        next if a.name_fr.present?
         achievement_response = connection.get("/v2/achievements?lang=#{locale.to_s}", id: achievement_id)
         achievement = JSON.parse(achievement_response.body)
         a.gw_id = achievement["id"]
