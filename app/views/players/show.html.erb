@@ -49,17 +49,23 @@
             <table data-reveal-target="item" class="hidden table table-compact table-zebra w-full">
               <thead>
                 <tr>
+                  <th></th>
                   <th><%= t "titles.singular" %></th>
                 </tr>
               </thead>
               <tbody>
                 <% @titles.each do |title| %>
-                  <tr>
-                    <th>
-                      <%= title.name.html_safe %>
-                    </th>
-                  </tr>
-                <% end %>
+                 <tr>
+                   <td>
+                     <% if title.icon_url.present? %>
+                       <%= image_tag title.icon_url %>
+                     <% end %>
+                   </td>
+                   <th>
+                     <%= title.name.html_safe %>
+                   </th>
+                 </tr>
+               <% end %>
               </tbody>
             </table>
           </div>
@@ -76,23 +82,6 @@
               </div>
             </div>
 
-            <div class="avatar-group">
-              <% @player.done_achievements.with_icons.pluck(:icon).uniq.first(5).each do |icon| %>
-                <div class="avatar">
-                  <div class="w-12">
-                    <%= image_tag icon %>
-                  </div>
-                </div>
-              <% end %>
-              <% if @player.done_achievements.with_icons.pluck(:icon).uniq.count > 5 %>
-                <div class="avatar placeholder">
-                  <div class="w-12 bg-primary text-neutral-content font-extrabold">
-                    <span>+<%= @player.done_achievements.with_icons.pluck(:icon).uniq.count - 5 %></span>
-                  </div>
-                </div>
-              <% end %>
-            </div>
-
             <div data-controller="reveal" data-reveal-hidden-class="hidden" class="overflow-x-auto">
               <button data-action="click->reveal#toggle" type="button" class="btn btn-primary mb-5"><%= t "toggle_me" %></button>
               <table data-reveal-target="item" class="hidden table table-compact table-zebra w-full">
@@ -106,8 +95,8 @@
                   <% @player.done_achievements.each do |achievement| %>
                     <tr>
                       <td>
-                        <% if achievement.icon.present? %>
-                          <%= image_tag achievement.icon %>
+                        <% if achievement.icon_url.present? %>
+                          <%= image_tag achievement.icon_url %>
                         <% end %>
                       </td>
                       <th>

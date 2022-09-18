@@ -21,4 +21,11 @@ namespace :titles do
       end
     end
   end
+
+  task link_to_achievements: :environment do
+    Title.all.each do |title|
+      a = Achievement.find_by(gw_id: title.achievement_gw_id)
+      title.update(achievement: a)
+    end
+  end
 end

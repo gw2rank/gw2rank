@@ -10,9 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_17_221921) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_18_114143) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "achievement_categories", force: :cascade do |t|
+    t.integer "gw_id"
+    t.string "name_en"
+    t.string "name_fr"
+    t.string "description_en"
+    t.string "description_fr"
+    t.integer "order"
+    t.string "icon"
+    t.string "achievements_array", array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "achievements", force: :cascade do |t|
     t.integer "gw_id"
@@ -34,6 +47,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_17_221921) do
     t.string "description_fr"
     t.string "requirement_fr"
     t.string "locked_text_fr"
+    t.bigint "achievement_category_id"
+    t.index ["achievement_category_id"], name: "index_achievements_on_achievement_category_id"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -109,6 +124,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_17_221921) do
     t.datetime "updated_at", null: false
     t.string "name_fr"
     t.json "json_fr"
+    t.bigint "achievement_id"
+    t.index ["achievement_id"], name: "index_titles_on_achievement_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -130,8 +147,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_17_221921) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "achievements", "achievement_categories"
   add_foreign_key "ladders", "seasons"
   add_foreign_key "player_achievements", "achievements"
   add_foreign_key "player_achievements", "players"
   add_foreign_key "players", "users"
+  add_foreign_key "titles", "achievements"
 end
