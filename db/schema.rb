@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_18_114143) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_18_145755) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,6 +23,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_18_114143) do
     t.integer "order"
     t.string "icon"
     t.string "achievements_array", array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "achievement_group_id"
+    t.index ["achievement_group_id"], name: "index_achievement_categories_on_achievement_group_id"
+  end
+
+  create_table "achievement_groups", force: :cascade do |t|
+    t.string "gw_id"
+    t.string "name_en"
+    t.string "name_fr"
+    t.string "description_en"
+    t.string "description_fr"
+    t.integer "order"
+    t.string "categories_array", array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -147,6 +161,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_18_114143) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "achievement_categories", "achievement_groups"
   add_foreign_key "achievements", "achievement_categories"
   add_foreign_key "ladders", "seasons"
   add_foreign_key "player_achievements", "achievements"

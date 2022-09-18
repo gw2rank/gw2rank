@@ -7,6 +7,7 @@ class PlayersController < ApplicationController
   def show
     @player = Player.friendly.find(params[:id])
     @titles = Title.where("gw_id IN (?)", @player.titles) if @player.titles.present?
+    @achievement_groups = AchievementGroup.all.includes(:achievement_categories)
   end
 
   def new

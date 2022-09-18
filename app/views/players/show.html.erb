@@ -8,9 +8,140 @@
   </div>
 </div>
 
-<div class="hero bg-base-100 min-h-screen">
-  <div class="mx-auto max-w-md text-center md:max-w-full">
-    <% if @player.best_rank.present? %>
+<% if defined?(@titles) %>
+  <div class="m-6 grid md:grid-cols-2 gap-4 place-content-center">
+    <div>
+      <h2 class="mb-5 text-4xl font-extrabold"><%= t "titles.plural" %></h2>
+      <div class="stats shadow">
+        <div class="stat">
+          <div class="stat-title"><%= t "titles.count" %></div>
+          <div class="stat-value text-success"><%= @titles.count %></div>
+          <div class="stat-desc"></div>
+        </div>
+      </div>
+      <div data-controller="reveal" data-reveal-hidden-class="hidden" class="overflow-x-auto">
+        <button data-action="click->reveal#toggle" type="button" class="btn btn-primary mb-5"><%= t "titles.plural" %>: <%= t "toggle_me" %></button>
+        <table data-reveal-target="item" class="hidden table table-compact table-zebra w-full">
+          <thead>
+            <tr>
+              <th></th>
+              <th><%= t "titles.singular" %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @titles.each do |title| %>
+              <tr>
+                <td>
+                  <% if title.icon_url.present? %>
+                    <%= image_tag title.icon_url %>
+                  <% end %>
+                </td>
+                <th>
+                  <%= title.name.html_safe %>
+                </th>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div>
+      <h2 class="mb-5 text-4xl font-extrabold"><%= t "achievements.plural" %></h2>
+      <div class="stats shadow">
+        <div class="stat">
+          <div class="stat-title"><%= t "achievements.done.count" %></div>
+          <div class="stat-value text-success"><%= @player.done_achievements.count %></div>
+          <div class="stat-desc"></div>
+        </div>
+      </div>
+
+      <% @achievement_groups.order(:order).each do |achievement_group| %>
+        <div data-controller="reveal" data-reveal-hidden-class="hidden" class="card bg-shadow-xl">
+          <div class="flex justify-between">
+            <h2 class="card-title"><%= achievement_group.name %></h2>
+            <div class="avatar-group -space-x-6">
+              <% achievement_group.achievement_categories.pluck(:icon).uniq.first(4).each do |icon| %>
+                <div class="avatar">
+                  <div class="w-12">
+                    <%= image_tag icon %>
+                  </div>
+                </div>
+                </figure>
+              <% end %>
+            </div>
+          </div>
+          <div class="card-body">
+            <button data-action="click->reveal#toggle" type="button" class="btn btn-primary"><%= achievement_group.name %> <%= t "achievements.plural" %>: <%= t("toggle_me") %></button>
+            <div data-reveal-target="item" class="hidden">
+              <% achievement_group.achievement_categories.each do |achievement_category| %>
+                <div class="flex justify-between">
+                  <h3 class="card-title"><%= achievement_category.name %></h3>
+                  <%= image_tag achievement_category.icon if achievement_category.icon.present? %>
+                </div>
+                <table>
+                  <% @player.done_achievements_by_category_id(achievement_category.id).each do |achievement| %>
+                    <tr>
+                      <td>
+                        <%= image_tag achievement.icon_url if achievement.icon_url.present? %>
+                      </td>
+                      <td>
+                        <%= achievement.name %>
+                      </td>
+                    </tr>
+                  <% end %>
+                </table>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="my-5 stats shadow">
+        <div class="stat">
+          <div class="stat-title"><%= t "achievements.current.count" %></div>
+          <div class="stat-value text-warning"><%= @player.current_player_achievements.count %></div>
+          <div class="stat-desc"></div>
+        </div>
+      </div>
+
+      <div data-controller="reveal" data-reveal-hidden-class="hidden" class="overflow-x-auto">
+        <button data-action="click->reveal#toggle" type="button" class="btn btn-primary mb-5"><%= t "toggle_me" %></button>
+        <table data-reveal-target="item" class="hidden table table-compact table-zebra w-full">
+          <thead>
+            <tr>
+              <td><%= t "achievements.current.progress" %></td>
+              <td></td>
+              <th><%= t "achievements.singular" %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @player.current_player_achievements.each do |player_achievement| %>
+              <tr>
+                <td>
+                  <div class="radial-progress" style="--value:<%= player_achievement.progress %>; --size:3rem"><%= player_achievement.progress %>%</div>
+                </td>
+                <td>
+                  <% if player_achievement.achievement.icon_url.present? %>
+                    <%= image_tag player_achievement.achievement.icon_url %>
+                  <% end %>
+                </td>
+                <th>
+                  <%= player_achievement.achievement.name %>
+                </th>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+<% end %>
+
+<% if @player.best_rank.present? %>
+  <div class="hero bg-base-100 min-h-screen">
+    <div class="mx-auto max-w-md text-center md:max-w-full">
       <div class="flex flex-col w-full lg:flex-row">
         <div class="grid flex-grow h-32 card bg-base-300 rounded-box place-items-center">
           <p class="text-2xl font-extrabold">
@@ -31,124 +162,6 @@
           <p class="text-2xl font-extrabold"><%= t "players.rating.best" %><br><%= @player.best_rating %></p>
         </div>
       </div>
-    <% end %>
-
-    <% if defined?(@titles) && @titles.any? %>
-      <div class="flex flex-col w-full lg:flex-row">
-        <div>
-          <h2 class="mb-5 text-4xl font-extrabold"><%= t "titles.plural" %></h2>
-          <div class="stats shadow">
-            <div class="stat">
-              <div class="stat-title"><%= t "titles.count" %></div>
-              <div class="stat-value text-success"><%= @titles.count %></div>
-              <div class="stat-desc"></div>
-            </div>
-          </div>
-          <div data-controller="reveal" data-reveal-hidden-class="hidden" class="overflow-x-auto">
-            <button data-action="click->reveal#toggle" type="button" class="btn btn-primary mb-5"><%= t "toggle_me" %></button>
-            <table data-reveal-target="item" class="hidden table table-compact table-zebra w-full">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th><%= t "titles.singular" %></th>
-                </tr>
-              </thead>
-              <tbody>
-                <% @titles.each do |title| %>
-                 <tr>
-                   <td>
-                     <% if title.icon_url.present? %>
-                       <%= image_tag title.icon_url %>
-                     <% end %>
-                   </td>
-                   <th>
-                     <%= title.name.html_safe %>
-                   </th>
-                 </tr>
-               <% end %>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="divider lg:divider-horizontal"></div> 
-        <div>
-          <% if @player.achievements.any? %>
-            <h2 class="mb-5 text-4xl font-extrabold"><%= t "achievements.plural" %></h2>
-            <div class="stats shadow">
-              <div class="stat">
-                <div class="stat-title"><%= t "achievements.done.count" %></div>
-                <div class="stat-value text-success"><%= @player.done_achievements.count %></div>
-                <div class="stat-desc"></div>
-              </div>
-            </div>
-
-            <div data-controller="reveal" data-reveal-hidden-class="hidden" class="overflow-x-auto">
-              <button data-action="click->reveal#toggle" type="button" class="btn btn-primary mb-5"><%= t "toggle_me" %></button>
-              <table data-reveal-target="item" class="hidden table table-compact table-zebra w-full">
-                <thead>
-                  <tr>
-                    <td></td>
-                    <th><%= t "achievements.singular" %></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% @player.done_achievements.each do |achievement| %>
-                    <tr>
-                      <td>
-                        <% if achievement.icon_url.present? %>
-                          <%= image_tag achievement.icon_url %>
-                        <% end %>
-                      </td>
-                      <th>
-                        <%= achievement.name %>
-                      </th>
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>
-            </div>
-
-            <div class="my-5 stats shadow">
-              <div class="stat">
-                <div class="stat-title"><%= t "achievements.current.count" %></div>
-                <div class="stat-value text-warning"><%= @player.current_player_achievements.count %></div>
-                <div class="stat-desc"></div>
-              </div>
-            </div>
-
-            <div data-controller="reveal" data-reveal-hidden-class="hidden" class="overflow-x-auto">
-              <button data-action="click->reveal#toggle" type="button" class="btn btn-primary mb-5"><%= t "toggle_me" %></button>
-              <table data-reveal-target="item" class="hidden table table-compact table-zebra w-full">
-                <thead>
-                  <tr>
-                    <td><%= t "achievements.current.progress" %></td>
-                    <td></td>
-                    <th><%= t "achievements.singular" %></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% @player.current_player_achievements.each do |player_achievement| %>
-                    <tr>
-                      <td>
-                        <div class="radial-progress" style="--value:<%= player_achievement.progress %>; --size:3rem"><%= player_achievement.progress %>%</div>
-                      </td>
-                      <td>
-                        <% if player_achievement.achievement.icon_url.present? %>
-                          <%= image_tag player_achievement.achievement.icon_url %>
-                        <% end %>
-                      </td>
-                      <th>
-                        <%= player_achievement.achievement.name %>
-                      </th>
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>
-            </div>
-
-          <% end %>
-        </div>
-      </div>
-    <% end %>
+    </div>
   </div>
-</div>
+<% end %>

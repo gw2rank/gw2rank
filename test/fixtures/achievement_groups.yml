@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  gw_id: 1
+  name_en: MyString
+  name_fr: MyString
+  description_en: MyString
+  description_fr: MyString
+  order: 1
+  categories_array: MyString
+
+two:
+  gw_id: 1
+  name_en: MyString
+  name_fr: MyString
+  description_en: MyString
+  description_fr: MyString
+  order: 1
+  categories_array: MyString

@@ -8,8 +8,6 @@ namespace :achievement_categories do
       achievement_categories = JSON.parse(achievement_categories_response.body)
       achievement_categories.each do |achievement_category|
         ac = AchievementCategory.where(gw_id: achievement_category["id"]).first_or_initialize
-        next unless ac.new_record?
-        ac.gw_id = achievement_category["id"]
         ac.icon = achievement_category["icon"]
         ac.order = achievement_category["order"]
         ac.achievements_array = achievement_category["achievements"]

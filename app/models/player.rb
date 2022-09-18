@@ -15,6 +15,10 @@ class Player < ApplicationRecord
     achievements.where("player_achievements.done = ?", true)
   end
 
+  def done_achievements_by_category_id(category_id)
+    done_achievements.where("achievements.achievement_category_id = ?", category_id)
+  end
+
   def current_player_achievements
     player_achievements.where("player_achievements.done = ?", false)
   end
