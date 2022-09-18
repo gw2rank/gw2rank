@@ -133,8 +133,8 @@
                         <div class="radial-progress" style="--value:<%= player_achievement.progress %>; --size:3rem"><%= player_achievement.progress %>%</div>
                       </td>
                       <td>
-                        <% if player_achievement.achievement.icon.present? %>
-                          <%= image_tag player_achievement.achievement.icon %>
+                        <% if player_achievement.achievement.icon_url.present? %>
+                          <%= image_tag player_achievement.achievement.icon_url %>
                         <% end %>
                       </td>
                       <th>
