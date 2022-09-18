@@ -74,7 +74,7 @@
           <div class="card-body">
             <button data-action="click->reveal#toggle" type="button" class="btn btn-primary"><%= achievement_group.name %> <%= t "achievements.plural" %>: <%= t("toggle_me") %></button>
             <div data-reveal-target="item" class="hidden">
-              <% achievement_group.achievement_categories.each do |achievement_category| %>
+              <% achievement_group.achievement_categories.order(:order).each do |achievement_category| %>
                 <div class="flex justify-between">
                   <h3 class="card-title"><%= achievement_category.name %></h3>
                   <%= image_tag achievement_category.icon if achievement_category.icon.present? %>
