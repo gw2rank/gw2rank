@@ -1,4 +1,16 @@
 fr:
+  gw2rank:
+    description_html: |
+      Partagez vos titres dans le Panthéon des joueurs de Guild Wars 2 !<br>
+      Entrez votre clé d'API pour partager vos titres et succès.<br>
+      Faites passer le mot.<br>
+      Partagez vos titres du Panthéon des joueurs à vos amis !
+  registration:
+    api_key: "Clé d'API"
+    title: "Créez votre légende Guild Wars 2 !"
+    description_html: |
+      Pour partager les titres et les succès que vous avez débloqués, entrez votre clé API avec :
+    submit: "Créer ma légende !"
   and: "ET"
   achievements:
     singular: "Succès"
@@ -11,13 +23,13 @@ fr:
   menu:
     discord: "Rejoindre notre Discord"
     home: "Accueil"
-    ladders: "Ladders"
+    ladders: "Ladders PvP"
     log_in_with_discord: "Se connecter avec Discord"
     log_out: "Se déconnecter"
-    players: "Joueurs"
+    players: "Panthéon des joueurs"
   players:
     singular: "Joueur"
-    plural: "Joueurs"
+    plural: "Panthéon des joueurs"
     name: "Nom"
     pvp:
       top: "Meilleurs joueurs PvP"
@@ -25,7 +37,7 @@ fr:
       best: "Meilleur rang"
     rating:
       best: "Meilleur rating"
-    register: "Enregistrer mon joueur"
+    register: "Créer ma légende"
   show:
     less: "Voir moins"
     more: "Voir plus"

@@ -1,4 +1,17 @@
 en:
+  gw2rank:
+    description_html: |
+      Share your titles in the Guild Wars 2 Hall of Fame!<br>
+      Enter your API key to share your titles and achievements.<br>
+      Spread the word.<br>
+      Share your Hall of Fame titles with your friends!
+  registration:
+    api_key: "API key"
+    title: "Create your Guild Wars 2 legend!"
+    description_html: |
+      Create your Guild Wars 2 legend!<br>
+      To share what titles and achievements you've unlock, enter your API key with:
+    submit: "Create my legend!"
   and: "AND"
   achievements:
     singular: "Achievement"
@@ -14,10 +27,10 @@ en:
     ladders: "Ladders"
     log_in_with_discord: "Log in with Discord"
     log_out: "Log out"
-    players: "Players"
+    players: "Hall of fame"
   players:
-    singular: "Players"
-    plural: "Player"
+    singular: "Player"
+    plural: "Hall of fame"
     name: "Name"
     pvp:
       top: "Top PvP players"
@@ -25,7 +38,7 @@ en:
       best: "Best rank"
     rating:
       best: "Best rating"
-    register: "Register my player"
+    register: "Create your legend"
   show:
     less: "Show less"
     more: "Show more"

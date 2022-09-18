@@ -1,23 +1,23 @@
-<div class="m-5">
-  <div class="mockup-window border border-base-300 bg-primary">
-    <div class="flex justify-center px-4 py-16 border-t border-base-300 bg-base-100">
-      <pre>
-Create new API key with:
-
+<div class="hero min-h-screen" style="background-image: url(<%= image_path 'texture_crystal2_s.jpg' %>);">
+  <div class="hero-overlay bg-opacity-10"></div>
+  <div class="hero-content text-center text-neutral-content">
+    <div class="max-w-lg">
+      <div class="card w-96 bg-primary shadow-xl">
+        <div class="card-body">
+          <h2 class="card-title"><%= t("registration.title") %></h2>
+          <p><%= t("registration.description_html") %></p>
+          <pre>
 [x] account
-
 [x] unlocks
-
 [x] progression
-      </pre>
-    </div>
-    <div class="flex justify-center px-4 py-16 border-t border-base-300 bg-primary">
-
-      <%= form_with(model: @player) do |form| %>
-        <%= form.label :api_key, "API key" %>
-        <%= form.password_field :api_key, required: true, class: "input w-full mt-2" %>
-        <%= form.submit "Register player", class: "btn btn-success mt-5" %>
-      <% end %>
+          </pre>
+          <%= form_with(model: @player) do |form| %>
+            <%= form.label :api_key, t("registration.api_key") %>
+            <%= form.password_field :api_key, required: true, class: "input w-full mt-2" %>
+            <%= form.submit t("registration.submit"), class: "btn btn-success font-bold mt-5" %>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
