@@ -11,6 +11,43 @@
 <div class="hero bg-base-100 min-h-screen">
   <div class="mx-auto max-w-md text-center md:max-w-full">
     <div class="my-20 flex flex-col w-full lg:flex-row">
+      <div>
+        <h2 class="p-4 text-2xl text-center font-extrabold"><%= t "players.plural" %> <span class="badge badge-warning badge-5xl">ALPHA</span></h2>
+        <div class="overflow-x-auto">
+          <table class="table table-compact table-zebra w-full">
+            <thead>
+              <tr>
+                <th><%= t "players.name" %></th>
+                <th><%= t "titles.plural" %></th>
+                <th><%= t "achievements.plural" %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @players_with_titles.order(:igname).each do |player| %>
+                <tr>
+                  <th>
+                    <%= link_to player.igname, player_path(player) %>
+                  </th>
+                  <td>
+                    <%= player.titles.count %>
+                  </td>
+                  <td>
+                    <%= player.done_achievements.count %>
+                  </td>
+                </tr>
+              <% end %>
+              <tr>
+                <th colspan="3">
+                  <%= link_to t("players.register"), new_player_path, class: "btn btn-primary font-bold" %>
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="divider lg:divider-horizontal"></div>
+
       <div class="grid flex-grow card bg-base-300 rounded-box place-items-center">
         <h2 class="p-4 text-2xl text-center font-extrabold"><%= t "players.pvp.top" %></h2>
         <div data-controller="read-more" data-read-more-more-text-value="<%= t "show.more" %>" data-read-more-less-text-value="<%= t "show.less" %>" class="overflow-x-auto">
@@ -44,10 +81,10 @@
                     </td>
                   </tr>
                 <% end %>
-             </tbody>
+              </tbody>
             </table>
           </div>
- 
+
           <button data-action="read-more#toggle" class="btn btn-primary my-5"><%= t "show.more" %></button>
 
           <template data-read-more-target="full">
@@ -85,41 +122,7 @@
           </template>
         </div> 
       </div>
-      <div class="divider lg:divider-horizontal"></div> 
-      <div>
-        <h2 class="p-4 text-2xl text-center font-extrabold"><%= t "players.plural" %> <span class="badge badge-warning badge-5xl">ALPHA</span></h2>
-        <div class="overflow-x-auto">
-          <table class="table table-compact table-zebra w-full">
-            <thead>
-              <tr>
-                <th><%= t "players.name" %></th>
-                <th><%= t "titles.plural" %></th>
-                <th><%= t "achievements.plural" %></th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @players_with_titles.order(:igname).each do |player| %>
-                <tr>
-                  <th>
-                    <%= link_to player.igname, player_path(player) %>
-                  </th>
-                  <td>
-                    <%= player.titles.count %>
-                  </td>
-                  <td>
-                    <%= player.done_achievements.count %>
-                  </td>
-                </tr>
-              <% end %>
-              <tr>
-                <th colspan="3">
-                  <%= link_to t("players.register"), new_player_path, class: "btn btn-primary font-bold" %>
-                </th>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+
     </div>
   </div>
 </div>
