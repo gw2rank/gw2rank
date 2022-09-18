@@ -10,17 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_15_180829) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_17_221921) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "achievements", force: :cascade do |t|
     t.integer "gw_id"
     t.string "icon"
-    t.string "name"
-    t.string "description"
-    t.string "requirement"
-    t.string "locked_text"
+    t.string "name_en"
+    t.string "description_en"
+    t.string "requirement_en"
+    t.string "locked_text_en"
     t.string "gw_type"
     t.string "flags", array: true
     t.json "tiers"
@@ -30,6 +30,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_15_180829) do
     t.integer "point_cap"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name_fr"
+    t.string "description_fr"
+    t.string "requirement_fr"
+    t.string "locked_text_fr"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -98,11 +102,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_15_180829) do
 
   create_table "titles", force: :cascade do |t|
     t.integer "gw_id"
-    t.string "name"
+    t.string "name_en"
     t.integer "achievement_gw_id"
-    t.json "json"
+    t.json "json_en"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name_fr"
+    t.json "json_fr"
   end
 
   create_table "users", force: :cascade do |t|

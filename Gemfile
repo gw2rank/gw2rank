@@ -37,6 +37,7 @@ gem 'omniauth'
 gem 'omniauth-discord'
 gem 'omniauth-rails_csrf_protection'
 gem 'rest-client'
+gem 'traco'
 gem 'turbo-rails'
 
 group :development, :test do

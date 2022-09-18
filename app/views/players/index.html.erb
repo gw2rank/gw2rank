@@ -2,7 +2,7 @@
   <div class="hero-overlay bg-opacity-10"></div>
   <div class="hero-content text-center text-neutral-content">
     <div class="max-w-4xl">
-      <h1 class="my-5 text-5xl font-extrabold">Players <span class="badge badge-warning badge-5xl">ALPHA</span></h1>
+      <h1 class="my-5 text-5xl font-extrabold"><%= t "players.plural" %> <span class="badge badge-warning badge-5xl">ALPHA</span></h1>
       <p class="mb-5"></p>
     </div>
   </div>
@@ -12,15 +12,15 @@
   <div class="mx-auto max-w-md text-center md:max-w-full">
     <div class="my-20 flex flex-col w-full lg:flex-row">
       <div class="grid flex-grow card bg-base-300 rounded-box place-items-center">
-        <h2 class="p-4 text-2xl text-center font-extrabold">Top PvP Players</h2>
-        <div data-controller="read-more" data-read-more-more-text-value="Show more" data-read-more-less-text-value="Show less" class="overflow-x-auto">
+        <h2 class="p-4 text-2xl text-center font-extrabold"><%= t "players.pvp.top" %></h2>
+        <div data-controller="read-more" data-read-more-more-text-value="<%= t "show.more" %>" data-read-more-less-text-value="<%= t "show.less" %>" class="overflow-x-auto">
           <div data-read-more-target="content">
             <table class="table table-compact table-zebra w-full">
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Best rank</th>
-                  <th>Best rating</th>
+                  <th><%= t "players.name" %></th>
+                  <th><%= t "players.rank.best" %></th>
+                  <th><%= t "players.rating.best" %></th>
                 </tr>
               </thead>
               <tbody> 
@@ -48,7 +48,7 @@
             </table>
           </div>
  
-          <button data-action="read-more#toggle" class="btn btn-primary my-5">Show more</button>
+          <button data-action="read-more#toggle" class="btn btn-primary my-5"><%= t "show.more" %></button>
 
           <template data-read-more-target="full">
             <table class="table table-compact table-zebra w-full">
@@ -87,14 +87,14 @@
       </div>
       <div class="divider lg:divider-horizontal"></div> 
       <div>
-        <h2 class="p-4 text-2xl text-center font-extrabold">Players <span class="badge badge-warning badge-5xl">ALPHA</span></h2>
+        <h2 class="p-4 text-2xl text-center font-extrabold"><%= t "players.plural" %> <span class="badge badge-warning badge-5xl">ALPHA</span></h2>
         <div class="overflow-x-auto">
           <table class="table table-compact table-zebra w-full">
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Titles</th>
-                <th>Achievements</th>
+                <th><%= t "players.name" %></th>
+                <th><%= t "titles.plural" %></th>
+                <th><%= t "achievements.plural" %></th>
               </tr>
             </thead>
             <tbody>
@@ -113,7 +113,7 @@
               <% end %>
               <tr>
                 <th colspan="3">
-                  <%= link_to "Register my player", new_player_path, class: "btn btn-primary font-bold" %>
+                  <%= link_to t("players.register"), new_player_path, class: "btn btn-primary font-bold" %>
                 </th>
               </tr>
             </tbody>

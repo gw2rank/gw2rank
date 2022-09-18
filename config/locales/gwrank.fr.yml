@@ -1,0 +1,36 @@
+fr:
+  and: "ET"
+  achievements:
+    singular: "Succès"
+    plural: "Succès"
+    current:
+      count: "Nombre de succès en cours"
+      progress: "Progression en cours"
+    done:
+      count: "Nombre de succès terminés"
+  menu:
+    discord: "Rejoindre notre Discord"
+    home: "Accueil"
+    ladders: "Ladders"
+    log_in_with_discord: "Se connecter avec Discord"
+    log_out: "Se déconnecter"
+    players: "Joueurs"
+  players:
+    singular: "Joueur"
+    plural: "Joueurs"
+    name: "Nom"
+    pvp:
+      top: "Meilleurs joueurs PvP"
+    rank:
+      best: "Meilleur rang"
+    rating:
+      best: "Meilleur rating"
+    register: "Enregistrer mon joueur"
+  show:
+    less: "Voir moins"
+    more: "Voir plus"
+  titles:
+    singular: "Titre"
+    plural: "Titres"
+    count: "Nombre de titres"
+  toggle_me: "Affiche / masque moi !"

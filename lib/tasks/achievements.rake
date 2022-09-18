@@ -3,19 +3,28 @@ namespace :achievements do
     connection = Faraday.new(
       url: "https://api.guildwars2.com",
     )
-    Player.where.not(api_key: nil).each do |player|
+    I18n.available_locales.each do |locale|
       achievements_response = connection.get("/v2/achievements")
       achievement_ids = JSON.parse(achievements_response.body)
       achievement_ids.each do |achievement_id|
         a = Achievement.where(gw_id: achievement_id).first_or_initialize
         next unless a.new_record?
-        achievement_response = connection.get("/v2/achievements", id: achievement_id)
+        achievement_response = connection.get("/v2/achievements?lang=#{locale.to_s}", id: achievement_id)
         achievement = JSON.parse(achievement_response.body)
         a.gw_id = achievement["id"]
         a.icon = achievement["icon"]
-        a.name = achievement["name"]
-        a.description = achievement["description"]
-        a.locked_text = achievement["locked_text"]
+        case locale
+        when :en
+          a.name_en = achievement["name"]
+          a.description_en = achievement["description"]
+          a.requirement_en = achievement["requirement"]
+          a.locked_text_en = achievement["locked_text"]
+        when :fr
+          a.name_fr = achievement["name"]
+          a.description_fr = achievement["description"]
+          a.requirement_fr = achievement["requirement"]
+          a.locked_text_fr = achievement["locked_text"]
+        end
         a.gw_type = achievement["type"]
         a.flags = achievement["flags"]
         a.tiers = achievement["tiers"]

@@ -8,7 +8,11 @@ Rails.application.routes.draw do
     get "/users/sign_out", to: "devise/sessions#destroy", as: :destroy_user_session
   end
 
-  resources :leaderboards, only: [:index]
-  resources :players, only: [:index, :show, :new, :create]
-  resources :seasons, only: [:index, :show]
+  scope "(:locale)", locale: /en|fr/ do
+    resources :leaderboards, only: [:index]
+    resources :players, only: [:index, :show, :new, :create]
+    resources :seasons, only: [:index, :show]
+  end
+
+  get "/:locale", to: "high_voltage/pages#show", id: "home"
 end
