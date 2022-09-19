@@ -9,6 +9,9 @@ class Player < ApplicationRecord
   scope :with_titles, -> { where.not(titles: nil) }
   scope :with_api_key, -> { where.not(api_key: nil) }
 
+  include PgSearch::Model
+  pg_search_scope :search_by_igname, against: :igname
+
   extend FriendlyId
   friendly_id :igname, use: :slugged
 

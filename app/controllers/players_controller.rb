@@ -1,7 +1,7 @@
 class PlayersController < ApplicationController
   def index
     @top_3_players = Player.top_3
-    @players_with_titles = Player.with_titles
+    @players_with_titles = Player.with_titles.order(player_achievements_count: :desc)
   end
 
   def show
