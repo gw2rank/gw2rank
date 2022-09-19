@@ -5,6 +5,7 @@ namespace :achievement_groups do
     )
     I18n.available_locales.each do |locale|
       achievement_groups_response = connection.get("/v2/achievements/groups?ids=all&lang=#{locale.to_s}")
+      next if achievement_groups_response.body["text"].present?
       achievement_groups = JSON.parse(achievement_groups_response.body)
       achievement_groups.each do |achievement_group|
         ag = AchievementGroup.where(gw_id: achievement_group["id"]).first_or_initialize

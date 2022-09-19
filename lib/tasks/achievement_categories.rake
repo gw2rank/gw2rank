@@ -5,6 +5,7 @@ namespace :achievement_categories do
     )
     I18n.available_locales.each do |locale|
       achievement_categories_response = connection.get("/v2/achievements/categories?ids=all&lang=#{locale.to_s}")
+      next if achievement_categories_response.body["text"].present?
       achievement_categories = JSON.parse(achievement_categories_response.body)
       achievement_categories.each do |achievement_category|
         ac = AchievementCategory.where(gw_id: achievement_category["id"]).first_or_initialize
