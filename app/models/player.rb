@@ -19,6 +19,26 @@ class Player < ApplicationRecord
   extend FriendlyId
   friendly_id :igname, use: :slugged
 
+  def achievements_points
+    achievements.pluck("achievements.tiers").flatten.map { |t| t["points"] }.sum
+  end
+
+  def achievements_points_by_group_id(group_id)
+    achievement_group = AchievementGroup.find(group_id)
+    category_ids = achievement_group.achievement_categories.pluck(:id)
+    achievements.where("achievements.achievement_category_id IN (?)", category_ids)
+      .pluck("achievements.tiers").flatten.map { |t| t["points"] }.sum
+  end
+
+  def achievements_points_by_category_id(category_id)
+    achievements_by_category_id(category_id)
+      .pluck("achievements.tiers").flatten.map { |t| t["points"] }.sum
+  end
+
+  def achievements_by_category_id(category_id)
+    achievements.where("achievements.achievement_category_id = ?", category_id)
+  end
+
   def done_achievements
     achievements.where("player_achievements.done = ?", true)
   end

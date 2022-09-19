@@ -20,6 +20,8 @@ fr:
       progress: "Progression en cours"
     done:
       count: "Nombre de succès terminés"
+    points:
+      count: "Nombre de points de succès"
   menu:
     discord: "Rejoindre notre Discord"
     home: "Accueil"

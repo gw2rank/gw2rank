@@ -21,6 +21,8 @@ en:
       progress: "Current progress"
     done:
       count: "Done achievements count"
+    points:
+      count: "Achievements points"
   menu:
     discord: "Join our Discord"
     home: "Home"

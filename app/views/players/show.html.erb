@@ -55,42 +55,71 @@
           <div class="stat-desc"></div>
         </div>
       </div>
+      <div class="stats shadow">
+        <div class="stat">
+          <div class="stat-title"><%= t "achievements.points.count" %></div>
+          <div class="stat-value text-success flex">
+            <%= @player.achievements_points %>
+            <%= image_tag "https://render.guildwars2.com/file/6631174867B0D6BC62EE3B3BFF2669336DDAE4DA/866106.png", class: "w-8" %>
+          </div>
+          <div class="stat-desc"></div>
+        </div>
+      </div>
 
       <% @achievement_groups.order(:order).each do |achievement_group| %>
-        <div data-controller="reveal" data-reveal-hidden-class="hidden" class="card bg-shadow-xl">
+        <div data-controller="reveal" data-reveal-hidden-class="hidden" class="card card-compact bg-shadow-xl">
           <div class="flex justify-between">
-            <h2 class="card-title"><%= achievement_group.name %></h2>
-            <div class="avatar-group -space-x-6">
-              <% achievement_group.achievement_categories.pluck(:icon).uniq.first(4).each do |icon| %>
-                <div class="avatar">
-                  <div class="w-12">
-                    <%= image_tag icon %>
+            <h2 class="card-title">
+              <button data-action="click->reveal#toggle" type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
+                </svg>
+              </button>
+                <%= achievement_group.name %>
+            </h2>
+            <div class="flex">
+              <div class="avatar-group -space-x-6">
+                <% achievement_group.achievement_categories.pluck(:icon).uniq.first(4).each do |icon| %>
+                  <div class="avatar">
+                    <div class="w-12 h-12">
+                      <%= image_tag icon %>
+                    </div>
                   </div>
-                </div>
-                </figure>
-              <% end %>
+                  </figure>
+                <% end %>
+              </div>
+              <div class="ml-6 card-title">
+                <%= @player.achievements_points_by_group_id(achievement_group.id) %>
+                <%= image_tag "https://render.guildwars2.com/file/6631174867B0D6BC62EE3B3BFF2669336DDAE4DA/866106.png", class: "w-8" %>
+              </div>
             </div>
           </div>
           <div class="card-body">
-            <button data-action="click->reveal#toggle" type="button" class="btn btn-primary"><%= achievement_group.name %> <%= t "achievements.plural" %>: <%= t("toggle_me") %></button>
             <div data-reveal-target="item" class="hidden">
               <% achievement_group.achievement_categories.order(:order).each do |achievement_category| %>
-                <div class="flex justify-between">
-                  <h3 class="card-title"><%= achievement_category.name %></h3>
-                  <%= image_tag achievement_category.icon if achievement_category.icon.present? %>
-                </div>
-                <table>
-                  <% @player.done_achievements_by_category_id(achievement_category.id).each do |achievement| %>
-                    <tr>
-                      <td>
-                        <%= image_tag achievement.icon_url if achievement.icon_url.present? %>
-                      </td>
-                      <td>
-                        <%= achievement.name %>
-                      </td>
-                    </tr>
-                  <% end %>
-                </table>
+                <% if @player.achievements_by_category_id(achievement_category.id).any? %>
+                  <div class="flex justify-between">
+                    <h3 class="card-title">
+                      <%= achievement_category.name %>
+                    </h3>
+                    <div class="flex">
+                      <%= image_tag achievement_category.icon, class: "w-12" if achievement_category.icon.present? %>
+                      <div class="card-title ml-6">
+                        <%= @player.achievements_points_by_category_id(achievement_category.id) %>
+                        <%= image_tag "https://render.guildwars2.com/file/6631174867B0D6BC62EE3B3BFF2669336DDAE4DA/866106.png", class: "w-8" %>
+                      </div>
+                    </div>
+                  </div>
+                  <table>
+                    <% @player.done_achievements_by_category_id(achievement_category.id).each do |achievement| %>
+                      <tr>
+                        <td>
+                          <%= achievement.name %>
+                        </td>
+                      </tr>
+                    <% end %>
+                  </table>
+                <% end %>
               <% end %>
             </div>
           </div>
