@@ -1,7 +1,14 @@
 class PlayersController < ApplicationController
   def index
-    @top_3_players = Player.top_3
-    @players_with_titles = Player.with_titles.order(player_achievements_count: :desc)
+    if params[:q].present?
+      @q = params[:q].html_safe
+      @players = Player.with_titles.whose_igname_starts_with(@q).order(player_achievements_count: :desc)
+      @top_3_players = Player.top_3.whose_igname_starts_with(@q)
+    else
+      @q = nil
+      @players = Player.with_titles.order(player_achievements_count: :desc)
+      @top_3_players = Player.top_3
+    end
   end
 
   def show

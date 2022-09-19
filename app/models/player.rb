@@ -10,7 +10,11 @@ class Player < ApplicationRecord
   scope :with_api_key, -> { where.not(api_key: nil) }
 
   include PgSearch::Model
-  pg_search_scope :search_by_igname, against: :igname
+  pg_search_scope :whose_igname_starts_with,
+    against: :igname,
+    using: {
+      tsearch: { prefix: true }
+    }
 
   extend FriendlyId
   friendly_id :igname, use: :slugged

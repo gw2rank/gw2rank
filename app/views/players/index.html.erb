@@ -10,7 +10,18 @@
 
 <div class="hero bg-base-100 min-h-screen">
   <div class="mx-auto max-w-md text-center md:max-w-full">
-    <div class="my-20 flex flex-col w-full lg:flex-row">
+    <div class="md:mt-20 mb-4">
+      <%= form_with(url: players_path, method: :get, class: "grid md:grid-cols-2 gap-2") do |form| %>
+        <div class="form-control w-full max-w-xs">
+          <%= form.label :q, t("players.singular"), class: "label" %>
+          <%= form.text_field :q, value: @q, class: "input input-bordered w-full max-w-xs" %>
+        </div>
+        <div class="form-control w-full max-w-xs">
+          <%= form.submit "Search", class: "md:mt-10 btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+    <div class="mb-20 flex flex-col w-full lg:flex-row">
       <div>
         <h2 class="p-4 text-2xl text-center font-extrabold"><%= t "players.plural" %> <span class="badge badge-warning badge-5xl">ALPHA</span></h2>
         <div class="overflow-x-auto">
@@ -23,7 +34,7 @@
               </tr>
             </thead>
             <tbody>
-              <% @players_with_titles.order(:igname).each do |player| %>
+              <% @players.each do |player| %>
                 <tr>
                   <th>
                     <%= link_to player.igname, player_path(player) %>
