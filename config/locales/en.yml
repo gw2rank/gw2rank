@@ -39,6 +39,7 @@ en:
     rating:
       best: "Best rating"
     register: "Create your legend"
+  search: "Search"
   show:
     less: "Show less"
     more: "Show more"

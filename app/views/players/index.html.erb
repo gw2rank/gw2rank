@@ -9,21 +9,22 @@
 </div>
 
 <div class="hero bg-base-100 min-h-screen">
-  <div class="mx-auto max-w-md text-center md:max-w-full">
-    <div class="md:mt-20 mb-4">
+  <div class="mx-auto w-md text-center md:w-full lg:w-2/3">
+    <div class="md:mt-10 mb-4">
       <%= form_with(url: players_path, method: :get, class: "grid md:grid-cols-2 gap-2") do |form| %>
-        <div class="form-control w-full max-w-xs">
+        <div class="form-control w-full">
           <%= form.label :q, t("players.singular"), class: "label" %>
-          <%= form.text_field :q, value: @q, class: "input input-bordered w-full max-w-xs" %>
+          <%= form.text_field :q, value: @q, class: "input input-bordered w-full" %>
         </div>
-        <div class="form-control w-full max-w-xs">
-          <%= form.submit "Search", class: "md:mt-10 btn btn-primary" %>
+        <div class="form-control w-full">
+          <%= form.submit t("search"), class: "md:mt-10 w-full btn btn-primary" %>
         </div>
       <% end %>
     </div>
-    <div class="mb-20 flex flex-col w-full lg:flex-row">
-      <div>
+    <div class="mb-10 flex flex-col w-full lg:flex-row">
+      <div class="lg:w-1/2">
         <h2 class="p-4 text-2xl text-center font-extrabold"><%= t "players.plural" %> <span class="badge badge-warning badge-5xl">ALPHA</span></h2>
+        <%= link_to t("players.register"), new_player_path, class: "w-full btn btn-primary font-bold mb-4" %>
         <div class="overflow-x-auto">
           <table class="table table-compact table-zebra w-full">
             <thead>
@@ -49,7 +50,7 @@
               <% end %>
               <tr>
                 <th colspan="3">
-                  <%= link_to t("players.register"), new_player_path, class: "btn btn-primary font-bold" %>
+                  <%= link_to t("players.register"), new_player_path, class: "w-full btn btn-primary font-bold" %>
                 </th>
               </tr>
             </tbody>
@@ -59,7 +60,7 @@
 
       <div class="divider lg:divider-horizontal"></div>
 
-      <div class="grid flex-grow card bg-base-300 rounded-box place-items-center">
+      <div class="lg:w-1/2 grid flex-grow card bg-base-300 rounded-box place-items-center">
         <h2 class="p-4 text-2xl text-center font-extrabold"><%= t "players.pvp.top" %></h2>
         <div data-controller="read-more" data-read-more-more-text-value="<%= t "show.more" %>" data-read-more-less-text-value="<%= t "show.less" %>" class="overflow-x-auto">
           <div data-read-more-target="content">

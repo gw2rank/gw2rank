@@ -38,6 +38,7 @@ fr:
     rating:
       best: "Meilleur rating"
     register: "Créer ma légende"
+  search: "Rechercher"
   show:
     less: "Voir moins"
     more: "Voir plus"
