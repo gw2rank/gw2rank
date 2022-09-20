@@ -2,7 +2,7 @@ class PlayersController < ApplicationController
   def index
     if params[:q].present?
       @q = params[:q].html_safe
-      @players = Player.with_titles.whose_igname_starts_with(@q).order(player_achievements_count: :desc)
+      @pagy, @players = pagy(Player.with_titles.whose_igname_starts_with(@q).order(player_achievements_count: :desc))
       @top_3_players = Player.top_3.whose_igname_starts_with(@q)
     else
       @q = nil
