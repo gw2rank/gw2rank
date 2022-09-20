@@ -6,7 +6,7 @@ class PlayersController < ApplicationController
       @top_3_players = Player.top_3.whose_igname_starts_with(@q)
     else
       @q = nil
-      @players = Player.with_titles.order(player_achievements_count: :desc)
+      @pagy, @players = pagy(Player.with_titles.order(player_achievements_count: :desc), items: 10)
       @top_3_players = Player.top_3
     end
   end

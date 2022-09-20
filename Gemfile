@@ -36,6 +36,7 @@ gem 'net-smtp', require: false
 gem 'omniauth'
 gem 'omniauth-discord'
 gem 'omniauth-rails_csrf_protection'
+gem 'pagy'
 gem 'pg_search'
 gem 'rest-client'
 gem 'traco'
