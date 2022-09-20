@@ -1,7 +1,5 @@
-class DiscordBotJob < ApplicationJob
-  queue_as :default
-
-  def perform(*args)
+namespace :discord_bot do
+  task run: :environment do
     bot = Discordrb::Commands::CommandBot.new token: Rails.application.credentials.discord.token,
       client_id: Rails.application.credentials.discord.app_id,
       prefix: '!'
@@ -63,12 +61,6 @@ Then, send me:
       end
     end
 
-    if Rails.env.production?
-      backgrounded = true
-    else
-      backgrounded = false
-    end
-
-    bot.run(backgrounded)
+    bot.run
   end
 end
