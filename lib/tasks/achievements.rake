@@ -5,15 +5,13 @@ namespace :achievements do
     )
     I18n.available_locales.each do |locale|
       achievements_response = connection.get("/v2/achievements")
-      return if achievements_response.body["text"].present?
       achievement_ids = JSON.parse(achievements_response.body)
       achievement_ids.each do |achievement_id|
         a = Achievement.where(gw_id: achievement_id).first_or_initialize
         next if a.name_fr.present?
         achievement_response = connection.get("/v2/achievements?lang=#{locale.to_s}", id: achievement_id)
-        return if achievement_response.body["text"].present?
         achievement = JSON.parse(achievement_response.body)
-        next if response.body["text"].present?
+        return if achievement["text"].present?
         a.gw_id = achievement["id"]
         a.icon = achievement["icon"]
         case locale

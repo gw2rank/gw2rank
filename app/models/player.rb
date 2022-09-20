@@ -20,7 +20,8 @@ class Player < ApplicationRecord
   friendly_id :igname, use: :slugged
 
   def achievements_points
-    achievements.pluck("achievements.tiers").flatten.map { |t| t["points"] }.sum
+    achievements
+      .pluck("achievements.tiers").flatten.map { |t| t["points"] }.sum
   end
 
   def achievements_points_by_group_id(group_id)
