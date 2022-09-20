@@ -44,6 +44,10 @@ class Player < ApplicationRecord
     achievements.where("player_achievements.done = ?", true)
   end
 
+  def done_achievements_count
+    done_achievements.count
+  end
+
   def done_achievements_by_category_id(category_id)
     done_achievements.where("achievements.achievement_category_id = ?", category_id)
   end
@@ -60,6 +64,10 @@ class Player < ApplicationRecord
     account = JSON.parse(response.body)
     return if response.body["text"].present?
     self.update(igname: account["name"]) unless self.igname.eql?(account["name"])
+  end
+
+  def titles_count
+    titles.length
   end
 
   def update_achievements

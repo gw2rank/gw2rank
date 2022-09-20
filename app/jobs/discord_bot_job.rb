@@ -6,19 +6,29 @@ class DiscordBotJob < ApplicationJob
       client_id: Rails.application.credentials.discord.app_id,
       prefix: '!'
 
-    bot.message do |event|
-      if !event.message.content.to_s.starts_with?("!")
-        event.respond("Hello!
+    bot.bucket :memes, limit: 3, time_span: 60, delay: 10
+
+    bot.command :hello, bucket: :memes, description: 'to say hello' do |event|
+      event.respond("Hello!
 Create your Guild Wars 2 legend! To share what titles and achievements you've unlock, enter your API key with:
 [x] account
 [x] unlocks
 [x] progression
 Then, send me:
-!register API_KEY")
-      end
+`!register API_KEY`")
     end
 
-    bot.command :register, description: 'to create your legend' do |event, api_key|
+    bot.command :rank, bucket: :memes, description: 'to show your rank' do |event|
+      user = User.find_by(provider: 'discord', uid: event.user.id)
+      embed = Discordrb::Webhooks::Embed.new
+      player = user.players
+      embed.title = "#{player.igname} on GW2Rank.com"
+      embed.description = "#{player.titles_count} titles, #{player.done_achievements_count} done achievements and #{player.achievements_points} achievements points on Guild Wars 2!"
+      embed.url = "https://gw2rank.com/players/#{player.slug}"
+      event.send_embed("", embed)
+    end
+
+    bot.command :register, bucket: :memes, description: 'to register your legendary account' do |event, api_key|
       user = User.where(provider: 'discord', uid: event.user.id).first_or_create do |player|
         player.email = "#{event.user.id}@gwrank.com"
         player.password = Devise.friendly_token[0, 20]
@@ -53,6 +63,12 @@ Then, send me:
       end
     end
 
-    bot.run(true)
+    if Rails.env.production?
+      backgrounded = true
+    else
+      backgrounded = false
+    end
+
+    bot.run(backgrounded)
   end
 end
