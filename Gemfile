@@ -26,6 +26,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'cssbundling-rails'
 gem 'devise'
+gem 'discordrb'
 gem 'faraday'
 gem 'friendly_id'
 gem 'high_voltage'
